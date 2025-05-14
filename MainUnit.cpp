@@ -25,6 +25,23 @@ __fastcall TMainForm::TMainForm(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
+
+/*
+AnsiString str = "name\Imya\srvmod\1\map\mapname\sv_hostname\Tut.Lubaya-Strochka";
+TSringList list = new TStringList;
+list->Count = 8;
+list->StrictDelimiter = true;
+list->Delimiter = '\';
+list->DelimitedText = str;
+// дальше сам - добавляешь в ValueListEditor :
+ValueListEditor->Key = list->Strings[0];
+ValueListEditor->Valeu = list->Strings[1];
+// и т.д.
+Delete list;
+list = NULL;
+// для пробела так же, только можно обойтись без StrictDelimiter
+*/
+//{"coord":{"lon":30.3,"lat":60.005},"weather":[{"id":804,"main":"Clouds","description":"overcast clouds","icon":"04d"}],"base":"stations","main":{"temp":283.2,"feels_like":282.45,"temp_min":283.2,"temp_max":283.2,"pressure":1000,"humidity":84,"sea_level":1000,"grnd_level":998},"visibility":10000,"wind":{"speed":4.98,"deg":237,"gust":5.91},"clouds":{"all":100},"dt":1747218129,"sys":{"type":2,"id":2046422,"country":"RU","sunrise":1747185799,"sunset":1747247228},"timezone":10800,"id":535729,"name":"Komendantsky aerodrom","cod":200}
 void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 {
 	TCursor Save_Cursor = Screen->Cursor;
@@ -36,7 +53,7 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 //	lat = LE_Lat->Text.ToDouble();
 //	lng = LE_Lng->Text.ToDouble();
 	Screen->Cursor = crHourGlass;
-	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + LE_Lat->Text + "&lon=" + LE_Lng->Text + "&appid=111fc293274bd7a3201358adf50ce678";
+	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + LE_Lat->Text + "&lon=" + LE_Lng->Text + "&";
 	try {
 		response = idHTTP->Get(ask_str);
 		Memo1->Lines->Add(response);
@@ -58,3 +75,42 @@ void __fastcall TMainForm::CloseButtonClick(TObject *Sender)
 	Close();
 }
 //---------------------------------------------------------------------------
+void __fastcall TMainForm::Button1Click(TObject *Sender)
+{
+	String str = Memo1->Text;
+	TStringList * list = new TStringList;
+//	list->Count = 8;
+	list->StrictDelimiter = true;
+	list->Delimiter = '{';
+	list->DelimitedText = str;
+	for (int i = 0; i < list->Count; i++) {
+		Memo2->Lines->Add(String(i) + ". " + list->Strings[i]);
+	}
+	// дальше сам - добавляешь в ValueListEditor :
+//	ValueListEditor->Key = list->Strings[0];
+//	ValueListEditor->Valeu = list->Strings[1];
+	// и т.д.
+//	LE_Temp->Text = list->Strings[0];
+//	LE_Rain->Text = list->Strings[1];
+	TStringList * list8 = new TStringList;
+	list8->StrictDelimiter = true;
+	list8->Delimiter = ':';
+	list8->DelimitedText = list->Strings[8];
+	for (int i = 0; i < list8->Count; i++) {
+		Memo2->Lines->Add(String(i) + ". " + list8->Strings[i]);
+	}
+	TStringList * listTemp = new TStringList;
+	listTemp->StrictDelimiter = true;
+	listTemp->Delimiter = ',';
+	listTemp->DelimitedText = list8->Strings[1];
+	for (int i = 0; i < listTemp->Count; i++) {
+		Memo2->Lines->Add(String(i) + ". " + listTemp->Strings[i]);
+	}
+	LE_Temp->Text = listTemp->Strings[0];
+	delete listTemp;
+	delete list8;
+	delete list;
+	list = NULL;
+}
+//---------------------------------------------------------------------------
+

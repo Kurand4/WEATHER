@@ -1,0 +1,16 @@
+Memo2
+0. 
+1. coord
+2. :
+3. lon
+4. :30,"lat":60},"weather":[
+5. id
+6. :804,"main":"Clouds","description":"overcast clouds","icon":"04d"}],"base":"stations","main":
+7. temp
+8. :282.7,"feels_like":280.89,"temp_min":282.7,"temp_max":282.7,"pressure":1000,"humidity":93,"sea_level":1000,"grnd_level":1000},"visibility":10000,"wind":
+9. speed
+10. :3.42,"deg":263,"gust":5.12},"clouds":
+11. all
+12. :100},"dt":1747220190,"sys":
+13. type
+14. :2,"id":2046422,"country":"RU","sunrise":1747185873,"sunset":1747247298},"timezone":10800,"id":534841,"name":"Lisiy Nos","cod":200}

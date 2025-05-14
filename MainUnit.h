@@ -30,9 +30,12 @@ __published:	// IDE-managed Components
 	TLabeledEdit *LE_Lat;
 	TLabeledEdit *LE_Lng;
 	TLabeledEdit *LE_Temp;
-	TLabeledEdit *LE_Presipitation;
+	TLabeledEdit *LE_Rain;
+	TButton *Button1;
+	TMemo *Memo2;
 	void __fastcall GetButtonClick(TObject *Sender);
 	void __fastcall CloseButtonClick(TObject *Sender);
+	void __fastcall Button1Click(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TMainForm(TComponent* Owner);

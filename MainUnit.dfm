@@ -2,8 +2,8 @@ object MainForm: TMainForm
   Left = 549
   Top = 300
   Caption = 'MainForm'
-  ClientHeight = 350
-  ClientWidth = 635
+  ClientHeight = 527
+  ClientWidth = 733
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,44 +13,47 @@ object MainForm: TMainForm
   OldCreateOrder = False
   Position = poDesigned
   DesignSize = (
-    635
-    350)
+    733
+    527)
   PixelsPerInch = 96
   TextHeight = 13
   object GetButton: TButton
-    Left = 511
-    Top = 239
+    Left = 609
+    Top = 416
     Width = 116
     Height = 41
     Anchors = [akRight, akBottom]
     Caption = 'Get'
     TabOrder = 0
     OnClick = GetButtonClick
-    ExplicitTop = 280
+    ExplicitLeft = 511
+    ExplicitTop = 239
   end
   object Memo1: TMemo
     Left = 8
     Top = 8
-    Width = 489
-    Height = 334
-    Anchors = [akLeft, akTop, akRight, akBottom]
+    Width = 587
+    Height = 281
+    Anchors = [akLeft, akTop, akRight]
     ScrollBars = ssBoth
     TabOrder = 1
+    ExplicitWidth = 489
   end
   object CloseButton: TButton
-    Left = 511
-    Top = 303
+    Left = 609
+    Top = 480
     Width = 116
     Height = 41
     Anchors = [akRight, akBottom]
     Caption = 'Close'
     TabOrder = 2
     OnClick = CloseButtonClick
-    ExplicitTop = 344
+    ExplicitLeft = 511
+    ExplicitTop = 303
   end
   object LE_Lat: TLabeledEdit
-    Left = 511
-    Top = 159
+    Left = 609
+    Top = 336
     Width = 116
     Height = 21
     Anchors = [akRight, akBottom]
@@ -59,11 +62,12 @@ object MainForm: TMainForm
     EditLabel.Caption = 'Lat'
     TabOrder = 3
     Text = '60'
-    ExplicitTop = 200
+    ExplicitLeft = 511
+    ExplicitTop = 159
   end
   object LE_Lng: TLabeledEdit
-    Left = 511
-    Top = 199
+    Left = 609
+    Top = 376
     Width = 116
     Height = 21
     Anchors = [akRight, akBottom]
@@ -72,10 +76,11 @@ object MainForm: TMainForm
     EditLabel.Caption = 'Long'
     TabOrder = 4
     Text = '30'
-    ExplicitTop = 240
+    ExplicitLeft = 511
+    ExplicitTop = 199
   end
   object LE_Temp: TLabeledEdit
-    Left = 511
+    Left = 609
     Top = 24
     Width = 116
     Height = 21
@@ -84,16 +89,39 @@ object MainForm: TMainForm
     EditLabel.Height = 13
     EditLabel.Caption = 'Temperature'
     TabOrder = 5
+    ExplicitLeft = 511
   end
-  object LE_Presipitation: TLabeledEdit
-    Left = 511
+  object LE_Rain: TLabeledEdit
+    Left = 609
     Top = 64
     Width = 116
     Height = 21
-    EditLabel.Width = 59
+    Anchors = [akTop, akRight]
+    EditLabel.Width = 21
     EditLabel.Height = 13
-    EditLabel.Caption = 'Presipitation'
+    EditLabel.Caption = 'Rain'
     TabOrder = 6
+    ExplicitLeft = 511
+  end
+  object Button1: TButton
+    Left = 8
+    Top = 295
+    Width = 115
+    Height = 33
+    Caption = 'Button1'
+    TabOrder = 7
+    OnClick = Button1Click
+  end
+  object Memo2: TMemo
+    Left = 8
+    Top = 336
+    Width = 571
+    Height = 171
+    Anchors = [akLeft, akRight, akBottom]
+    Lines.Strings = (
+      'Memo2')
+    ScrollBars = ssBoth
+    TabOrder = 8
   end
   object IdHTTP1: TIdHTTP
     AllowCookies = True
@@ -105,7 +133,7 @@ object MainForm: TMainForm
     Request.Host = 'https://api.weather.yandex.ru'
     Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
     HTTPOptions = [hoForceEncodeParams]
-    Left = 40
-    Top = 264
+    Left = 640
+    Top = 256
   end
 end
