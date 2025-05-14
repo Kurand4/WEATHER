@@ -1,0 +1,50 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+
+#pragma hdrstop
+
+#include "MainUnit.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma link "IdBaseComponent"
+#pragma link "IdComponent"
+#pragma link "IdHTTP"
+#pragma link "IdTCPClient"
+#pragma link "IdTCPConnection"
+#pragma link "IdBaseComponent"
+#pragma link "IdComponent"
+#pragma link "IdHTTP"
+#pragma link "IdTCPClient"
+#pragma link "IdTCPConnection"
+#pragma resource "*.dfm"
+TMainForm *MainForm;
+//---------------------------------------------------------------------------
+__fastcall TMainForm::TMainForm(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TMainForm::GetButtonClick(TObject *Sender)
+{
+	TCursor Save_Cursor = Screen->Cursor;
+	TIdHTTP *idHTTP = new TIdHTTP(NULL);
+	idHTTP->Request->UserAgent = "Mozilla/5.0";
+	String ask_str, response;
+	double lat, lng;
+
+//	lat = LE_Lat->Text.ToDouble();
+//	lng = LE_Lng->Text.ToDouble();
+	Screen->Cursor = crHourGlass;
+	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + LE_Lat->Text + "&lon=" + LE_Lng->Text + "&appid=111fc293274bd7a3201358adf50ce678";
+	try {
+			response = idHTTP->Get(ask_str);
+			Memo1->Lines->Add(response);
+			// Парсинг JSON ответа      f6d62ab1-48c6-4f67-8943-005f655630d9        X-Yandex-Weather-Key
+	}
+	__finally {
+			delete idHTTP;
+			Screen->Cursor = Save_Cursor;
+	}
+}
+//---------------------------------------------------------------------------
