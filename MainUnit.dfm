@@ -1,7 +1,7 @@
 object MainForm: TMainForm
   Left = 549
   Top = 300
-  Caption = 'MainForm'
+  Caption = 'OpenWeatherMap '
   ClientHeight = 527
   ClientWidth = 733
   Color = clBtnFace
@@ -19,15 +19,13 @@ object MainForm: TMainForm
   TextHeight = 13
   object GetButton: TButton
     Left = 609
-    Top = 416
+    Top = 402
     Width = 116
     Height = 41
     Anchors = [akRight, akBottom]
     Caption = 'Get'
     TabOrder = 0
     OnClick = GetButtonClick
-    ExplicitLeft = 511
-    ExplicitTop = 239
   end
   object Memo1: TMemo
     Left = 8
@@ -37,23 +35,20 @@ object MainForm: TMainForm
     Anchors = [akLeft, akTop, akRight]
     ScrollBars = ssBoth
     TabOrder = 1
-    ExplicitWidth = 489
   end
   object CloseButton: TButton
     Left = 609
-    Top = 480
+    Top = 466
     Width = 116
     Height = 41
     Anchors = [akRight, akBottom]
     Caption = 'Close'
     TabOrder = 2
     OnClick = CloseButtonClick
-    ExplicitLeft = 511
-    ExplicitTop = 303
   end
   object LE_Lat: TLabeledEdit
     Left = 609
-    Top = 336
+    Top = 322
     Width = 116
     Height = 21
     Anchors = [akRight, akBottom]
@@ -61,13 +56,11 @@ object MainForm: TMainForm
     EditLabel.Height = 13
     EditLabel.Caption = 'Lat'
     TabOrder = 3
-    Text = '60'
-    ExplicitLeft = 511
-    ExplicitTop = 159
+    Text = '60.33356'
   end
   object LE_Lng: TLabeledEdit
     Left = 609
-    Top = 376
+    Top = 362
     Width = 116
     Height = 21
     Anchors = [akRight, akBottom]
@@ -75,9 +68,7 @@ object MainForm: TMainForm
     EditLabel.Height = 13
     EditLabel.Caption = 'Long'
     TabOrder = 4
-    Text = '30'
-    ExplicitLeft = 511
-    ExplicitTop = 199
+    Text = '30.37694'
   end
   object LE_Temp: TLabeledEdit
     Left = 609
@@ -89,7 +80,6 @@ object MainForm: TMainForm
     EditLabel.Height = 13
     EditLabel.Caption = 'Temperature'
     TabOrder = 5
-    ExplicitLeft = 511
   end
   object LE_Rain: TLabeledEdit
     Left = 609
@@ -101,7 +91,6 @@ object MainForm: TMainForm
     EditLabel.Height = 13
     EditLabel.Caption = 'Rain'
     TabOrder = 6
-    ExplicitLeft = 511
   end
   object Button1: TButton
     Left = 8
@@ -110,6 +99,7 @@ object MainForm: TMainForm
     Height = 33
     Caption = 'Button1'
     TabOrder = 7
+    Visible = False
     OnClick = Button1Click
   end
   object Memo2: TMemo
@@ -133,7 +123,15 @@ object MainForm: TMainForm
     Request.Host = 'https://api.weather.yandex.ru'
     Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
     HTTPOptions = [hoForceEncodeParams]
-    Left = 640
-    Top = 256
+    Left = 648
+    Top = 208
+  end
+  object ADConnection1: TADConnection
+    Params.Strings = (
+      'Database=C:\AFI\WEATHER\OpenWeather.db'
+      'DriverID=SQLite')
+    LoginPrompt = False
+    Left = 200
+    Top = 296
   end
 end

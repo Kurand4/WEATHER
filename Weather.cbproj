@@ -23,7 +23,7 @@
 			<Multithreaded>true</Multithreaded>
 			<ProjectType>CppVCLApplication</ProjectType>
 			<PackageImports>vclx.bpi;vcl.bpi;vclimg.bpi;dbrtl.bpi;Rave77VCL.bpi;bdertl.bpi;rtl.bpi;bcbie.bpi;vclactnband.bpi;xmlrtl.bpi;bcbsmp.bpi;vcldb.bpi;vcldbx.bpi;vcltouch.bpi;dsnap.bpi;dsnapcon.bpi;TeeUI.bpi;TeeDB.bpi;Tee.bpi;vclib.bpi;ibxpress.bpi;adortl.bpi;IndyCore.bpi;IndySystem.bpi;IndyProtocols.bpi;inet.bpi;intrawebdb_100_140.bpi;Intraweb_100_140.bpi;vclie.bpi;websnap.bpi;webdsnap.bpi;inetdb.bpi;inetdbbde.bpi;inetdbxpress.bpi;soaprtl.bpi;vclribbon.bpi;dbexpress.bpi;DbxCommonDriver.bpi;DataSnapIndy10ServerTransport.bpi;DataSnapProviderClient.bpi;DbxClientDriver.bpi;DataSnapServer.bpi;DBXInterBaseDriver.bpi;DBXMySQLDriver.bpi;dbxcds.bpi;DBXFirebirdDriver.bpi;DBXSybaseASEDriver.bpi;DBXSybaseASADriver.bpi;DBXOracleDriver.bpi;DBXMSSQLDriver.bpi;DBXInformixDriver.bpi;DBXDb2Driver.bpi;AnyDAC_PhysSQLite_D14.bpi;AnyDAC_Phys_D14.bpi;AnyDAC_ComI_D14.bpi;AnyDAC_PhysPg_D14.bpi;AnyDAC_PhysIB_D14.bpi;AnyDAC_PhysTDBX_D14.bpi;AnyDAC_PhysADS_D14.bpi;AnyDAC_PhysASA_D14.bpi;AnyDAC_PhysODBC_D14.bpi;AnyDAC_PhysOracle_D14.bpi;AnyDAC_PhysMySQL_D14.bpi;AnyDAC_PhysDb2_D14.bpi;AnyDAC_PhysMSSQL_D14.bpi;AnyDAC_PhysMSAcc_D14.bpi;AnyDAC_GUIxForms_D14.bpi;AnyDAC_Comp_D14.bpi</PackageImports>
-			<AllPackageLibs>rtl.lib;vcl.lib;IndyCore.lib;IndySystem.lib;IndyProtocols.lib</AllPackageLibs>
+			<AllPackageLibs>rtl.lib;vcl.lib;IndyCore.lib;IndySystem.lib;IndyProtocols.lib;dbrtl.lib;AnyDAC_Phys_D14.lib;AnyDAC_ComI_D14.lib;xmlrtl.lib;AnyDAC_Comp_D14.lib;AnyDAC_PhysSQLite_D14.lib</AllPackageLibs>
 			<DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
 			<DynamicRTL>true</DynamicRTL>
 			<UsePackages>true</UsePackages>
@@ -61,16 +61,16 @@
 			<ILINK_TranslatedLibraryPath>$(BDS)\lib\$(LANGDIR)\release;$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
 		</PropertyGroup>
 		<ItemGroup>
-			<CppCompile Include="MainUnit.cpp">
-				<Form>MainForm</Form>
-				<DependentOn>MainUnit.h</DependentOn>
-				<BuildOrder>2</BuildOrder>
+			<CppCompile Include="Weather.cpp">
+				<BuildOrder>0</BuildOrder>
 			</CppCompile>
 			<ResFiles Include="Weather.res">
 				<BuildOrder>1</BuildOrder>
 			</ResFiles>
-			<CppCompile Include="Weather.cpp">
-				<BuildOrder>0</BuildOrder>
+			<CppCompile Include="MainUnit.cpp">
+				<Form>MainForm</Form>
+				<DependentOn>MainUnit.h</DependentOn>
+				<BuildOrder>2</BuildOrder>
 			</CppCompile>
 			<FormResources Include="MainUnit.dfm"/>
 			<BuildConfiguration Include="Base">

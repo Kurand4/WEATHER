@@ -41,11 +41,11 @@ Docked=0
 State=0
 Left=1688
 Top=1172
-Width=6521
+Width=7755
 Height=8646
 MaxLeft=-5
 MaxTop=-9
-ClientWidth=6438
+ClientWidth=7672
 ClientHeight=8307
 DockedToMainForm=0
 BorlandEditorCodeExplorer=BorlandEditorCodeExplorer@EditWindow0
@@ -66,9 +66,9 @@ WelcomePageURL=bds:/default.htm
 [View1]
 CustomEditViewType=TEditView
 Module=C:\AFI\weather\MainUnit.cpp
-CursorX=85
-CursorY=60
-TopLine=1
+CursorX=111
+CursorY=56
+TopLine=14
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -99,8 +99,7 @@ Dockable=1
 StayOnTop=0
 
 [Breakpoints]
-Count=1
-Breakpoint0='C:\AFI\weather\MainUnit.cpp',95,'',0,1,'',1,0,0,'',1,'','','',0,''
+Count=0
 
 [EmbarcaderoWin32Debugger_AddressBreakpoints]
 Count=0
@@ -390,18 +389,23 @@ Visible=1
 Docked=0
 State=0
 Left=0
-Top=4149
+Top=4844
 Width=1688
-Height=4635
+Height=5061
 MaxLeft=-5
 MaxTop=-9
 ClientWidth=1604
-ClientHeight=4297
+ClientHeight=4722
 TBDockHeight=5208
 LRDockWidth=1547
 Dockable=1
 StayOnTop=0
-SplitPos=73
+SplitPos=150
+
+[PropInspDesignerSelection]
+ArrangeBy=Name
+SelectedItem=Name,
+ExpandedItems=Anchors=1,BorderIcons=0,Constraints=0,Font=0,BevelEdges=0,Margins=0,Touch=0
 
 [ModelViewTool]
 PercentageSizes=1
