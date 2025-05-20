@@ -1,9 +1,9 @@
 object MainForm: TMainForm
-  Left = 549
-  Top = 300
+  Left = 274
+  Top = 154
   Caption = 'OpenWeatherMap '
-  ClientHeight = 527
-  ClientWidth = 733
+  ClientHeight = 791
+  ClientWidth = 1181
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,106 +12,255 @@ object MainForm: TMainForm
   Font.Style = []
   OldCreateOrder = False
   Position = poDesigned
-  DesignSize = (
-    733
-    527)
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
-  object GetButton: TButton
-    Left = 609
-    Top = 402
-    Width = 116
-    Height = 41
-    Anchors = [akRight, akBottom]
-    Caption = 'Get'
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 1181
+    Height = 791
+    Align = alClient
+    Caption = ' '
     TabOrder = 0
-    OnClick = GetButtonClick
+    object Splitter1: TSplitter
+      Left = 1
+      Top = 710
+      Width = 1179
+      Height = 3
+      Cursor = crVSplit
+      Align = alBottom
+      ExplicitTop = 1
+      ExplicitWidth = 575
+    end
+    object Splitter2: TSplitter
+      Left = 989
+      Top = 1
+      Height = 709
+      Align = alRight
+      ExplicitLeft = 736
+      ExplicitTop = 272
+      ExplicitHeight = 100
+    end
+    object StatusBar1: TStatusBar
+      Left = 1
+      Top = 771
+      Width = 1179
+      Height = 19
+      Panels = <
+        item
+          Width = 777
+        end
+        item
+          Width = 50
+        end>
+      ExplicitLeft = 0
+      ExplicitTop = 772
+    end
+    object Panel2: TPanel
+      Left = 1
+      Top = 713
+      Width = 1179
+      Height = 58
+      Align = alBottom
+      Caption = ' '
+      TabOrder = 1
+      object RadioGroup1: TRadioGroup
+        Left = 16
+        Top = 3
+        Width = 385
+        Height = 44
+        Caption = 'Mode'
+        Columns = 3
+        ItemIndex = 1
+        Items.Strings = (
+          'Archive'
+          'Current'
+          'Forecast')
+        TabOrder = 0
+      end
+    end
+    object Panel3: TPanel
+      Left = 992
+      Top = 1
+      Width = 188
+      Height = 709
+      Align = alRight
+      Caption = ' '
+      TabOrder = 2
+      ExplicitLeft = 995
+      ExplicitTop = -2
+      DesignSize = (
+        188
+        709)
+      object CloseButton: TButton
+        Left = 24
+        Top = 650
+        Width = 137
+        Height = 41
+        Anchors = [akRight, akBottom]
+        Caption = 'Close'
+        TabOrder = 0
+        OnClick = CloseButtonClick
+      end
+      object GetButton: TButton
+        Left = 24
+        Top = 522
+        Width = 137
+        Height = 41
+        Anchors = [akRight, akBottom]
+        Caption = 'Get'
+        TabOrder = 1
+        OnClick = GetButtonClick
+      end
+      object DBLCB_Fields: TDBLookupComboBox
+        Left = 24
+        Top = 80
+        Width = 145
+        Height = 21
+        KeyField = 'FieldID'
+        ListField = 'FieldName'
+        ListSource = DS_Fields
+        TabOrder = 2
+      end
+      object DBEd_Lat: TDBEdit
+        Left = 24
+        Top = 40
+        Width = 65
+        Height = 21
+        DataField = 'Lat'
+        DataSource = DS_Fields
+        TabOrder = 3
+      end
+      object DBEd_Lng: TDBEdit
+        Left = 112
+        Top = 40
+        Width = 57
+        Height = 21
+        DataField = 'Lng'
+        DataSource = DS_Fields
+        TabOrder = 4
+      end
+      object LE_Temp: TLabeledEdit
+        Left = 24
+        Top = 196
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 80
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Temperature (C)'
+        TabOrder = 5
+      end
+      object LE_Rain: TLabeledEdit
+        Left = 24
+        Top = 284
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 58
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Rain (mm/h)'
+        TabOrder = 6
+      end
+      object LE_Clouds: TLabeledEdit
+        Left = 24
+        Top = 236
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 54
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Clouds (%)'
+        TabOrder = 7
+      end
+      object LE_Time: TLabeledEdit
+        Left = 24
+        Top = 332
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 22
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Time'
+        TabOrder = 8
+      end
+    end
+    object Panel4: TPanel
+      Left = 1
+      Top = 1
+      Width = 988
+      Height = 709
+      Align = alClient
+      Caption = ' '
+      TabOrder = 3
+      ExplicitLeft = 210
+      ExplicitTop = -41
+      ExplicitWidth = 970
+      object PageControl1: TPageControl
+        Left = 1
+        Top = 1
+        Width = 986
+        Height = 707
+        ActivePage = TabSheet1
+        Align = alClient
+        TabOrder = 0
+        object TabSheet1: TTabSheet
+          Caption = 'TabSheet1'
+          DesignSize = (
+            978
+            679)
+          object Memo1: TMemo
+            Left = 8
+            Top = 8
+            Width = 961
+            Height = 145
+            Anchors = [akLeft, akTop, akRight]
+            ScrollBars = ssBoth
+            TabOrder = 0
+          end
+          object Memo2: TMemo
+            Left = 8
+            Top = 157
+            Width = 961
+            Height = 522
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            Lines.Strings = (
+              'Memo2')
+            ScrollBars = ssBoth
+            TabOrder = 1
+          end
+        end
+        object TabSheet2: TTabSheet
+          Caption = 'TabSheet2'
+          ImageIndex = 1
+          object DBChart1: TDBChart
+            Left = 0
+            Top = 0
+            Width = 978
+            Height = 679
+            Title.Text.Strings = (
+              'TDBChart')
+            View3D = False
+            Align = alClient
+            TabOrder = 0
+            ExplicitLeft = 112
+            ExplicitTop = 112
+            ExplicitWidth = 361
+            ExplicitHeight = 273
+          end
+        end
+      end
+    end
   end
-  object Memo1: TMemo
-    Left = 8
-    Top = 8
-    Width = 587
-    Height = 281
-    Anchors = [akLeft, akTop, akRight]
-    ScrollBars = ssBoth
-    TabOrder = 1
-  end
-  object CloseButton: TButton
-    Left = 609
-    Top = 466
-    Width = 116
-    Height = 41
-    Anchors = [akRight, akBottom]
-    Caption = 'Close'
-    TabOrder = 2
-    OnClick = CloseButtonClick
-  end
-  object LE_Lat: TLabeledEdit
-    Left = 609
-    Top = 322
-    Width = 116
-    Height = 21
-    Anchors = [akRight, akBottom]
-    EditLabel.Width = 15
-    EditLabel.Height = 13
-    EditLabel.Caption = 'Lat'
-    TabOrder = 3
-    Text = '60.33356'
-  end
-  object LE_Lng: TLabeledEdit
-    Left = 609
-    Top = 362
-    Width = 116
-    Height = 21
-    Anchors = [akRight, akBottom]
-    EditLabel.Width = 23
-    EditLabel.Height = 13
-    EditLabel.Caption = 'Long'
-    TabOrder = 4
-    Text = '30.37694'
-  end
-  object LE_Temp: TLabeledEdit
-    Left = 609
-    Top = 24
-    Width = 116
-    Height = 21
-    Anchors = [akTop, akRight]
-    EditLabel.Width = 62
-    EditLabel.Height = 13
-    EditLabel.Caption = 'Temperature'
-    TabOrder = 5
-  end
-  object LE_Rain: TLabeledEdit
-    Left = 609
-    Top = 64
-    Width = 116
-    Height = 21
-    Anchors = [akTop, akRight]
-    EditLabel.Width = 21
-    EditLabel.Height = 13
-    EditLabel.Caption = 'Rain'
-    TabOrder = 6
-  end
-  object Button1: TButton
-    Left = 8
-    Top = 295
-    Width = 115
-    Height = 33
-    Caption = 'Button1'
-    TabOrder = 7
-    Visible = False
-    OnClick = Button1Click
-  end
-  object Memo2: TMemo
-    Left = 8
-    Top = 336
-    Width = 571
-    Height = 171
-    Anchors = [akLeft, akRight, akBottom]
-    Lines.Strings = (
-      'Memo2')
-    ScrollBars = ssBoth
-    TabOrder = 8
+  object DB: TADConnection
+    Params.Strings = (
+      'Database=C:\AFI\WEATHER\OpenWeather.db'
+      'DriverID=SQLite')
+    Connected = True
+    LoginPrompt = False
+    Left = 48
+    Top = 48
   end
   object IdHTTP1: TIdHTTP
     AllowCookies = True
@@ -126,12 +275,29 @@ object MainForm: TMainForm
     Left = 648
     Top = 208
   end
-  object ADConnection1: TADConnection
-    Params.Strings = (
-      'Database=C:\AFI\WEATHER\OpenWeather.db'
-      'DriverID=SQLite')
-    LoginPrompt = False
-    Left = 200
-    Top = 296
+  object T_Fields: TADTable
+    IndexFieldNames = 'FieldID'
+    Connection = DB
+    UpdateOptions.UpdateTableName = 't_Fields'
+    TableName = 't_Fields'
+    Left = 1000
+    Top = 128
+  end
+  object DS_Fields: TDataSource
+    DataSet = T_Fields
+    Left = 1056
+    Top = 128
+  end
+  object ADPhysSQLiteDriverLink1: TADPhysSQLiteDriverLink
+    Left = 176
+    Top = 48
+  end
+  object ADSQLiteSecurity1: TADSQLiteSecurity
+    Left = 312
+    Top = 48
+  end
+  object ADGUIxWaitCursor1: TADGUIxWaitCursor
+    Left = 432
+    Top = 48
   end
 end

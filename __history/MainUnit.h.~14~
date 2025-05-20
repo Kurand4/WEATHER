@@ -1,0 +1,75 @@
+//---------------------------------------------------------------------------
+
+#ifndef MainUnitH
+#define MainUnitH
+//---------------------------------------------------------------------------
+#include <Classes.hpp>
+#include <Controls.hpp>
+#include <StdCtrls.hpp>
+#include <Forms.hpp>
+#include "IdBaseComponent.hpp"
+#include "IdComponent.hpp"
+#include "IdHTTP.hpp"
+#include "IdTCPClient.hpp"
+#include "IdTCPConnection.hpp"
+//#include <System.Net.HttpClient.hpp>
+#include "IdBaseComponent.hpp"
+#include "IdComponent.hpp"
+#include "IdHTTP.hpp"
+#include "IdTCPClient.hpp"
+#include "IdTCPConnection.hpp"
+#include <ExtCtrls.hpp>
+#include "uADCompClient.hpp"
+#include "uADGUIxIntf.hpp"
+#include "uADPhysIntf.hpp"
+#include "uADPhysManager.hpp"
+#include "uADStanAsync.hpp"
+#include "uADStanDef.hpp"
+#include "uADStanError.hpp"
+#include "uADStanIntf.hpp"
+#include "uADStanOption.hpp"
+#include "uADStanPool.hpp"
+#include <DB.hpp>
+#include "uADCompDataSet.hpp"
+#include "uADDAptIntf.hpp"
+#include "uADDAptManager.hpp"
+#include "uADDatSManager.hpp"
+#include "uADStanParam.hpp"
+#include <ComCtrls.hpp>
+#include <DBCtrls.hpp>
+//---------------------------------------------------------------------------
+class TMainForm : public TForm
+{
+__published:	// IDE-managed Components
+	TPanel *Panel1;
+	TStatusBar *StatusBar1;
+	TPanel *Panel2;
+	TSplitter *Splitter1;
+	TPanel *Panel3;
+	TSplitter *Splitter2;
+	TPanel *Panel4;
+	TMemo *Memo1;
+	TLabeledEdit *LE_Temp;
+	TLabeledEdit *LE_Rain;
+	TADConnection *DB;
+	TMemo *Memo2;
+	TLabeledEdit *LE_Lng;
+	TLabeledEdit *LE_Lat;
+	TIdHTTP *IdHTTP1;
+	TADTable *T_Fields;
+	TDataSource *DS_Fields;
+	TButton *CloseButton;
+	TButton *GetButton;
+	TDBLookupComboBox *DBLCB_Fields;
+	void __fastcall GetButtonClick(TObject *Sender);
+	void __fastcall CloseButtonClick(TObject *Sender);
+	void __fastcall Button1Click(TObject *Sender);
+	void __fastcall FormActivate(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+	__fastcall TMainForm(TComponent* Owner);
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TMainForm *MainForm;
+//---------------------------------------------------------------------------
+#endif

@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+# include <DateUtils.hpp>
 
 #pragma hdrstop
 
@@ -27,15 +28,24 @@
 #pragma link "uADStanIntf"
 #pragma link "uADStanOption"
 #pragma link "uADStanPool"
+#pragma link "uADCompDataSet"
+#pragma link "uADDAptIntf"
+#pragma link "uADDAptManager"
+#pragma link "uADDatSManager"
+#pragma link "uADStanParam"
+#pragma link "uADPhysSQLite"
+#pragma link "uADStanExprFuncs"
+#pragma link "uADCompGUIx"
+#pragma link "uADGUIxFormsWait"
+#pragma link "Chart"
+#pragma link "DBChart"
+#pragma link "TeEngine"
+#pragma link "TeeProcs"
 #pragma resource "*.dfm"
 TMainForm *MainForm;
 //---------------------------------------------------------------------------
-__fastcall TMainForm::TMainForm(TComponent* Owner)
-	: TForm(Owner)
-{
-}
+__fastcall TMainForm::TMainForm(TComponent* Owner) : TForm(Owner) {}
 //---------------------------------------------------------------------------
-
 /*
 111fc29_3274bd7a3_201358adf_50ce678
 */
@@ -47,12 +57,11 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 	idHTTP->Request->UserAgent = "Mozilla/5.0";
 	String ask_str, response;
 	String s1 = "111fc293274bd7a3", s2 = "201358adf50ce678";
-	double lat, lng;
+	String dt;  // unix time string - sec from 01.01.1970
 
-//	lat = LE_Lat->Text.ToDouble();
-//	lng = LE_Lng->Text.ToDouble();
 	Screen->Cursor = crHourGlass;
-	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + LE_Lat->Text + "&lon=" + LE_Lng->Text + "&appid=" + s1 + s2;
+	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + DBEd_Lat->Text + "&lon=" + DBEd_Lng->Text + "&appid=" + s1 + s2;
+	StatusBar1->Panels->Items[0]->Text = ask_str;
 	try {
 		response = idHTTP->Get(ask_str);
 		Memo1->Lines->Add(response);
@@ -79,6 +88,21 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 			Memo2->Lines->Add(String(i) + ". " + listTemp->Strings[i]);
 		}
 		LE_Temp->Text = FloatToStrF(listTemp->Strings[0].ToDouble() - 272.15, ffFixed, 6, 1);
+
+		TStringList * listClouds = new TStringList;
+		listClouds->StrictDelimiter = true;
+		listClouds->Delimiter = ',';
+		listClouds->DelimitedText = list->Strings[12];
+		for (int i = 0; i < listClouds->Count; i++) {
+			Memo2->Lines->Add(String(i) + ". " + listClouds->Strings[i]);
+		}
+		LE_Clouds->Text = listClouds->Strings[0].SubString(2,2);
+
+		s  = listClouds->Strings[2];
+		dt = s.SubString(2, s.Length());
+
+		LE_Time->Text = YearOf((TDateTime)dt);
+		delete listClouds;
 		delete listTemp;
 		delete list8;
 		delete list;
@@ -95,35 +119,12 @@ void __fastcall TMainForm::CloseButtonClick(TObject *Sender)
 	Close();
 }
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::Button1Click(TObject *Sender)
+
+void __fastcall TMainForm::FormActivate(TObject *Sender)
 {
-	String str = Memo1->Text;
-	TStringList * list = new TStringList;
-	list->StrictDelimiter = true;
-	list->Delimiter = '{';
-	list->DelimitedText = str;
-	for (int i = 0; i < list->Count; i++) {
-		Memo2->Lines->Add(String(i) + ". " + list->Strings[i]);
-	}
-	TStringList * list8 = new TStringList;
-	list8->StrictDelimiter = true;
-	list8->Delimiter = ':';
-	list8->DelimitedText = list->Strings[8];
-	for (int i = 0; i < list8->Count; i++) {
-		Memo2->Lines->Add(String(i) + ". " + list8->Strings[i]);
-	}
-	TStringList * listTemp = new TStringList;
-	listTemp->StrictDelimiter = true;
-	listTemp->Delimiter = ',';
-	listTemp->DelimitedText = list8->Strings[1];
-	for (int i = 0; i < listTemp->Count; i++) {
-		Memo2->Lines->Add(String(i) + ". " + listTemp->Strings[i]);
-	}
-	LE_Temp->Text = FloatToStrF(listTemp->Strings[0].ToDouble() - 272.15, ffFixed, 6, 1);
-	delete listTemp;
-	delete list8;
-	delete list;
-	list = NULL;
+	DB->Connected = true;
+	T_Fields->Active = true;
+	DBLCB_Fields->KeyValue = T_Fields->FieldByName("FieldID")->AsInteger;
 }
 //---------------------------------------------------------------------------
 

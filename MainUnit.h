@@ -30,25 +30,61 @@
 #include "uADStanOption.hpp"
 #include "uADStanPool.hpp"
 #include <DB.hpp>
+#include "uADCompDataSet.hpp"
+#include "uADDAptIntf.hpp"
+#include "uADDAptManager.hpp"
+#include "uADDatSManager.hpp"
+#include "uADStanParam.hpp"
+#include <ComCtrls.hpp>
+#include <DBCtrls.hpp>
+#include "uADPhysSQLite.hpp"
+#include "uADStanExprFuncs.hpp"
+#include "uADCompGUIx.hpp"
+#include "uADGUIxFormsWait.hpp"
+#include <Mask.hpp>
+#include "Chart.hpp"
+#include "DBChart.hpp"
+#include "TeEngine.hpp"
+#include "TeeProcs.hpp"
 //---------------------------------------------------------------------------
 class TMainForm : public TForm
 {
 __published:	// IDE-managed Components
+	TPanel *Panel1;
+	TStatusBar *StatusBar1;
+	TPanel *Panel2;
+	TSplitter *Splitter1;
+	TPanel *Panel3;
+	TSplitter *Splitter2;
+	TPanel *Panel4;
+	TADConnection *DB;
 	TIdHTTP *IdHTTP1;
-	TButton *GetButton;
-	TMemo *Memo1;
+	TADTable *T_Fields;
+	TDataSource *DS_Fields;
 	TButton *CloseButton;
-	TLabeledEdit *LE_Lat;
-	TLabeledEdit *LE_Lng;
+	TButton *GetButton;
+	TDBLookupComboBox *DBLCB_Fields;
+	TADPhysSQLiteDriverLink *ADPhysSQLiteDriverLink1;
+	TADSQLiteSecurity *ADSQLiteSecurity1;
+	TADGUIxWaitCursor *ADGUIxWaitCursor1;
+	TDBEdit *DBEd_Lat;
+	TDBEdit *DBEd_Lng;
 	TLabeledEdit *LE_Temp;
 	TLabeledEdit *LE_Rain;
-	TButton *Button1;
+	TLabeledEdit *LE_Clouds;
+	TRadioGroup *RadioGroup1;
+	TPageControl *PageControl1;
+	TTabSheet *TabSheet1;
+	TTabSheet *TabSheet2;
+	TMemo *Memo1;
 	TMemo *Memo2;
-	TADConnection *ADConnection1;
+	TDBChart *DBChart1;
+	TLabeledEdit *LE_Time;
 	void __fastcall GetButtonClick(TObject *Sender);
 	void __fastcall CloseButtonClick(TObject *Sender);
-	void __fastcall Button1Click(TObject *Sender);
+	void __fastcall FormActivate(TObject *Sender);
 private:	// User declarations
+	String s;
 public:		// User declarations
 	__fastcall TMainForm(TComponent* Owner);
 };
