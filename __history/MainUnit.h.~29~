@@ -46,9 +46,6 @@
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
-
-#include <DBXJSON.hpp>
-
 #include "IdBaseComponent.hpp"
 #include "IdComponent.hpp"
 #include "IdHTTP.hpp"

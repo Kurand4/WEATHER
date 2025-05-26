@@ -170,7 +170,7 @@ object MainForm: TMainForm
         EditLabel.Caption = 'Clouds (%)'
         TabOrder = 7
       end
-      object LE_Time0: TLabeledEdit
+      object LE_Time: TLabeledEdit
         Left = 24
         Top = 332
         Width = 116

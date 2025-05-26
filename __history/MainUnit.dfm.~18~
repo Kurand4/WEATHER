@@ -1,0 +1,238 @@
+object MainForm: TMainForm
+  Left = 549
+  Top = 300
+  Caption = 'OpenWeatherMap '
+  ClientHeight = 797
+  ClientWidth = 1297
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesigned
+  PixelsPerInch = 96
+  TextHeight = 13
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 778
+    Width = 1297
+    Height = 19
+    Panels = <>
+    ExplicitLeft = 576
+    ExplicitTop = 512
+    ExplicitWidth = 0
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 1297
+    Height = 778
+    Align = alClient
+    Caption = ' '
+    TabOrder = 1
+    ExplicitLeft = 168
+    ExplicitTop = 448
+    ExplicitWidth = 177
+    ExplicitHeight = 57
+    object Splitter1: TSplitter
+      Left = 1
+      Top = 724
+      Width = 1295
+      Height = 3
+      Cursor = crVSplit
+      Align = alBottom
+      ExplicitTop = 1
+      ExplicitWidth = 481
+    end
+    object Splitter2: TSplitter
+      Left = 1107
+      Top = 1
+      Width = 6
+      Height = 723
+      Align = alRight
+      ExplicitLeft = 816
+      ExplicitHeight = 478
+    end
+    object Panel2: TPanel
+      Left = 1
+      Top = 727
+      Width = 1295
+      Height = 50
+      Align = alBottom
+      Caption = ' '
+      TabOrder = 0
+      ExplicitTop = 488
+      ExplicitWidth = 902
+    end
+    object Panel3: TPanel
+      Left = 1113
+      Top = 1
+      Width = 183
+      Height = 723
+      Align = alRight
+      Caption = ' '
+      TabOrder = 1
+      ExplicitLeft = 720
+      ExplicitHeight = 478
+    end
+    object Panel4: TPanel
+      Left = 1
+      Top = 1
+      Width = 1106
+      Height = 723
+      Align = alClient
+      Caption = ' '
+      TabOrder = 2
+      ExplicitLeft = 88
+      ExplicitTop = 72
+      ExplicitWidth = 545
+      ExplicitHeight = 329
+      DesignSize = (
+        1106
+        723)
+      object Memo2: TMemo
+        Left = 8
+        Top = 349
+        Width = 758
+        Height = 171
+        Anchors = [akLeft, akRight, akBottom]
+        Lines.Strings = (
+          'Memo2')
+        ScrollBars = ssBoth
+        TabOrder = 0
+        ExplicitTop = 336
+        ExplicitWidth = 587
+      end
+      object CloseButton: TButton
+        Left = 780
+        Top = 479
+        Width = 116
+        Height = 41
+        Anchors = [akRight, akBottom]
+        Caption = 'Close'
+        TabOrder = 1
+        OnClick = CloseButtonClick
+        ExplicitLeft = 609
+        ExplicitTop = 466
+      end
+      object GetButton: TButton
+        Left = 780
+        Top = 415
+        Width = 116
+        Height = 41
+        Anchors = [akRight, akBottom]
+        Caption = 'Get'
+        TabOrder = 2
+        OnClick = GetButtonClick
+        ExplicitLeft = 609
+        ExplicitTop = 402
+      end
+      object LE_Lng: TLabeledEdit
+        Left = 780
+        Top = 375
+        Width = 116
+        Height = 21
+        Anchors = [akRight, akBottom]
+        EditLabel.Width = 23
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Long'
+        TabOrder = 3
+        Text = '30.37694'
+        ExplicitLeft = 609
+        ExplicitTop = 362
+      end
+      object LE_Lat: TLabeledEdit
+        Left = 780
+        Top = 335
+        Width = 116
+        Height = 21
+        Anchors = [akRight, akBottom]
+        EditLabel.Width = 15
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Lat'
+        TabOrder = 4
+        Text = '60.33356'
+        ExplicitLeft = 609
+        ExplicitTop = 322
+      end
+      object Button1: TButton
+        Left = 8
+        Top = 295
+        Width = 115
+        Height = 33
+        Caption = 'Button1'
+        TabOrder = 5
+        Visible = False
+      end
+      object Memo1: TMemo
+        Left = 8
+        Top = 8
+        Width = 758
+        Height = 281
+        Anchors = [akLeft, akTop, akRight]
+        ScrollBars = ssBoth
+        TabOrder = 6
+        ExplicitWidth = 587
+      end
+      object LE_Rain: TLabeledEdit
+        Left = 780
+        Top = 107
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 21
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Rain'
+        TabOrder = 7
+        ExplicitLeft = 609
+      end
+      object LE_Clouds: TLabeledEdit
+        Left = 780
+        Top = 64
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 32
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Clouds'
+        TabOrder = 8
+        ExplicitLeft = 609
+      end
+      object LE_Temp: TLabeledEdit
+        Left = 780
+        Top = 24
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 62
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Temperature'
+        TabOrder = 9
+        ExplicitLeft = 609
+      end
+    end
+  end
+  object ADConnection1: TADConnection
+    Params.Strings = (
+      'Database=C:\AFI\WEATHER\OpenWeather.db'
+      'DriverID=SQLite')
+    LoginPrompt = False
+    Left = 200
+    Top = 296
+  end
+  object IdHTTP1: TIdHTTP
+    AllowCookies = True
+    ProxyParams.BasicAuthentication = False
+    ProxyParams.ProxyPort = 0
+    Request.ContentLength = -1
+    Request.Accept = 'text/html, */*'
+    Request.BasicAuthentication = False
+    Request.Host = 'https://api.weather.yandex.ru'
+    Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
+    HTTPOptions = [hoForceEncodeParams]
+    Left = 648
+    Top = 208
+  end
+end

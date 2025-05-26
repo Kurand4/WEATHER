@@ -87,8 +87,6 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 	String s1 = "111fc293274bd7a3", s2 = "201358adf50ce678";
 	String dt;  // unix time string - sec from 01.01.1970
 
-	TJSONObject *obj = new TJSONObject;
-
 	Screen->Cursor = crHourGlass;
 	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + DBEd_Lat->Text + "&lon=" + DBEd_Lng->Text + "&appid=" + s1 + s2;
 	StatusBar1->Panels->Items[0]->Text = ask_str;
@@ -121,23 +119,19 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 
 		TStringList * listClouds = new TStringList;
 		listClouds->StrictDelimiter = true;
-		listClouds->Delimiter = '}';
+		listClouds->Delimiter = ',';
 		listClouds->DelimitedText = list->Strings[12];
 		for (int i = 0; i < listClouds->Count; i++) {
 			Memo2->Lines->Add(String(i) + ". " + listClouds->Strings[i]);
 		}
-		s = listClouds->Strings[0];
-		LE_Clouds->Text = s.SubString(2, s.Length());
+		LE_Clouds->Text = listClouds->Strings[0].SubString(2,2);
 
 		s  = listClouds->Strings[2];
 		dt = s.SubString(2, s.Length());
 
-//		LE_Time->Text = YearOf((TDateTime)dt);
-		String fullDate, castDate, castTime;
+		LE_Time->Text = YearOf((TDateTime)dt);
 
-		fullDate = ConvertDate(StrToInt64(dt)+3600*3, castDate, castTime);   //      StrToUInt
-		LE_Time0->Text = castDate;
-		LE_Time1->Text = castTime;
+		LE_Time1->Text = ConvertDate(StrToInt64(dt));   //      StrToUInt
 		delete listClouds;
 		delete listTemp;
 		delete list8;
@@ -162,15 +156,13 @@ void __fastcall TMainForm::FormActivate(TObject *Sender)
 	DBLCB_Fields->KeyValue = T_Fields->FieldByName("FieldID")->AsInteger;
 }
 //---------------------------------------------------------------------------
-String __fastcall TMainForm::ConvertDate(unsigned int sUnixDate, String &castDate, String &castTime)
+String __fastcall TMainForm::ConvertDate(unsigned int sUnixDate)
 {
 	unsigned int unixTime = sUnixDate; // Ваше Unix-время
 	TDateTime dateTime = UnixToDateTime(unixTime);
 
 	// Вывод в строку (формат по умолчанию)
 	String dateStr = DateTimeToStr(dateTime);
-	castDate = dateStr.SubString(1, 8);
-	castTime = dateStr.SubString(12, 5);
 	return dateStr; // Пример: "21.07.2025 12:58:42"
 }
 //---------------------------------------------------------------------------
