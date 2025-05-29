@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
-# include <DateUtils.hpp>
+#include <DateUtils.hpp>
 
 #pragma hdrstop
 
@@ -83,7 +83,6 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 	TCursor Save_Cursor = Screen->Cursor;
 	TIdHTTP *idHTTP = new TIdHTTP(NULL);
 	idHTTP->Request->UserAgent = "Mozilla/5.0";
-	String ask_str, response;
 	String s1 = "111fc293274bd7a3", s2 = "201358adf50ce678";
 	String dt;  // unix time string - sec from 01.01.1970
 
@@ -93,7 +92,8 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 	try {
 		response = idHTTP->Get(ask_str);
 		Memo1->Lines->Add(response);
-		// Парсинг JSON ответа:
+
+		/*/ Парсинг JSON ответа:
 		TStringList * list = new TStringList;
 		list->StrictDelimiter = true;
 		list->Delimiter = '{';
@@ -119,12 +119,13 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 
 		TStringList * listClouds = new TStringList;
 		listClouds->StrictDelimiter = true;
-		listClouds->Delimiter = ',';
+		listClouds->Delimiter = '}';
 		listClouds->DelimitedText = list->Strings[12];
 		for (int i = 0; i < listClouds->Count; i++) {
 			Memo2->Lines->Add(String(i) + ". " + listClouds->Strings[i]);
 		}
-		LE_Clouds->Text = listClouds->Strings[0].SubString(2,2);
+		s = listClouds->Strings[0];
+		LE_Clouds->Text = s.SubString(2, s.Length());
 
 		s  = listClouds->Strings[2];
 		dt = s.SubString(2, s.Length());
@@ -140,10 +141,10 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 		delete list8;
 		delete list;
 		list = NULL;
-		}
-	__finally {
-			delete idHTTP;
-			Screen->Cursor = Save_Cursor;
+		*/
+	} __finally {
+		delete idHTTP;
+		Screen->Cursor = Save_Cursor;
 	}
 }
 //---------------------------------------------------------------------------
@@ -169,6 +170,141 @@ String __fastcall TMainForm::ConvertDate(unsigned int sUnixDate, String &castDat
 	castDate = dateStr.SubString(1, 8);
 	castTime = dateStr.SubString(12, 5);
 	return dateStr; // Пример: "21.07.2025 12:58:42"
+}
+//---------------------------------------------------------------------------
+ /*
+	std::unique_ptr<TJSONValue> MyjsonValue = TJSONObject::ParseJSONValue(jsonstream->DataString);
+
+	TJSONObject* MyjsonFile = static_cast<TJSONObject*>(MyjsonValue.get());
+	Application->MessageBoxW(MyjsonFile->ToString().c_str(), _D(""), 0);
+
+	TJSONObject* MyjsonData = static_cast<TJSONObject*>(MyjsonFile->GetValue(_D("data")));
+	Application->MessageBoxW(MyjsonData->ToString().c_str(), _D(""), 0);
+
+	TJSONObject* MyjsonStock = static_cast<TJSONObject*>(MyjsonData->GetValue(_D("US.NYSE")));
+
+  s1 = MyjsonStock->GetValue(_D("fin_id"))->Value();
+  s2 = MyjsonStock->GetValue(_D("exchange"))->Value();
+  s3 = MyjsonStock->GetValue(_D("market"))->Value();
+  s4 = MyjsonStock->GetValue(_D("products"))->Value();
+  s5 = MyjsonStock->GetValue(_D("local_time"))->Value();
+  s6 = MyjsonStock->GetValue(_D("status"))->Value();
+  s7 = MyjsonStock->GetValue(_D("reason"))->Value();
+  s8 = MyjsonStock->GetValue(_D("until"))->Value();
+  s9 = MyjsonStock->GetValue(_D("next_bell"))->Value();
+}
+ */
+
+void __fastcall TMainForm::ParsButtonClick(TObject *Sender)
+{
+	String weather, temp, dt;
+//	TJSONObject *jsonObj = new TJSONObject;
+//	jsonObj->ParseJSONValue(response.BytesOf(), 0);
+
+//	TJSONObject* jsonObj = (TJSONObject*)TJSONObject::ParseJSONValue(response.BytesOf(), 0);
+//
+//	weather = jsonObj->Value();
+	weather = GetJSONstr("stations", "sys");
+	Memo2->Lines->Add(weather);
+
+	float tempVal = GetJSONval(weather, "temp");
+	LE_Temp->Text = FloatToStrF(tempVal - 272.15, ffFixed, 6, 1);
+
+	float cloudsVal = GetJSONval(weather, "clouds");
+	LE_Clouds->Text = FloatToStrF(cloudsVal, ffFixed, 6, 1);
+
+	float rainVal = GetJSONval(weather, "1h");
+	LE_Rain->Text = FloatToStrF(rainVal, ffFixed, 6, 1);
+
+	String timeVal = GetJSONtime(weather, "dt");
+	LE_Date->Text = castDate;
+	LE_Time->Text = castTime;
+//	try {
+//		if (jsonObj) {
+//			// Получение значений
+//			String name = jsonObj->GetValue("name")->Value();
+//			int age = ((TJSONNumber*)jsonObj->GetValue("age"))->AsInt;
+//			String city = jsonObj->GetValue("city")->Value();
+//
+//			// Вывод результатов
+//			ShowMessage("Name: " + name + "\nAge: " + IntToStr(age) + "\nCity: " + city);
+//
+//			// Модификация JSON
+//			jsonObj->AddPair("country", "USA");
+//
+//			// Преобразование обратно в строку
+//			String modifiedJson = jsonObj->ToString();
+//			Memo2->Text = modifiedJson;
+//		}
+//	} __finally {
+//			delete jsonObj;
+//	}
+//         if ( isdigit( text.c_str()[i] ) ) {
+/*
+
+Re: JSON пример
+Andrey Kurashvili
+Сегодня, 6:47
+Кому:вам
+{"coord":{"lon":28.756,"lat":60.717},"weather":[{"id":502,"main":"Rain","description":"heavy intensity rain","icon":"10d"}],"base":"
+stations","main":{"temp":286.14,"feels_like":286,"temp_min":286.14,"temp_max":286.14,"pressure":1011,"humidity":96,"sea_level":1011,"grnd_level":1009},"visibility":10000,"wind":{"speed":1.57,"deg":93,"gust":3.43},"rain":{"1h":10.29},"clouds":{"all":100},"dt":1748490335,
+"sys":{"country":"RU","sunrise":1748479916,"sunset":1748545991},"timezone":10800,"id":470546,"name":"Vyborg","cod":200}
+*/
+
+}
+//---------------------------------------------------------------------------
+String __fastcall TMainForm::GetJSONstr(String startStr, String finStr)
+{
+	int beg = response.Pos(startStr) + startStr.Length();
+	int fin = response.Pos(finStr);
+	return response.SubString(beg, fin);
+}
+//---------------------------------------------------------------------------
+float __fastcall TMainForm::GetJSONval(String fullStr, String startStr)
+{
+	AnsiString 	s = "";
+	float       res;
+	bool        found = false;
+
+	int beg = fullStr.Pos(startStr) + startStr.Length() + 2;
+	for (int i = beg; i < fullStr.Length(); i++) {
+		if (isdigit(fullStr[i]) || fullStr[i] == '.') {
+			s += fullStr[i];
+			found = true;
+		} else {
+			if (found) break;
+		}
+	}
+	if (s.Length()) {
+		res = s.ToDouble();
+	}
+	return res;
+}
+//---------------------------------------------------------------------------
+String __fastcall TMainForm::GetJSONtime(String fullStr, String startStr)
+{
+	AnsiString 	    s = "";
+	float       res;
+	bool        found = false;
+	String dt;  // unix time string - sec from 01.01.1970
+
+	int beg = fullStr.Pos(startStr) + startStr.Length() + 2;
+	for (int i = beg; i < fullStr.Length(); i++) {
+		if (isdigit(fullStr[i]) || fullStr[i] == '.') {
+			s += fullStr[i];
+			found = true;
+		} else {
+			if (found) break;
+		}
+	}
+//		String fullDate, castDate, castTime;
+//
+//		fullDate = ConvertDate(StrToInt64(dt)+3600*3, castDate, castTime);   //      StrToUInt
+	dt = s;
+	if (s.Length()) {
+//		ConvertDate(StrToInt64(dt), &castDate, &castTime);
+	}
+	return res;
 }
 //---------------------------------------------------------------------------
 

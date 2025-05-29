@@ -39,12 +39,16 @@
 #include <Mask.hpp>
 #include <StdCtrls.hpp>
 #include <DateUtils.hpp> // Äëÿ UnixToDateTime
+#include <SysUtils.hpp>
 
 //---------------------------------------------------------------------------
 #include <Classes.hpp>
 #include <Controls.hpp>
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
+
+//#include <DBXJSON.hpp>
+
 #include "IdBaseComponent.hpp"
 #include "IdComponent.hpp"
 #include "IdHTTP.hpp"
@@ -117,13 +121,21 @@ __published:	// IDE-managed Components
 	TMemo *Memo1;
 	TMemo *Memo2;
 	TDBChart *DBChart1;
-	TLabeledEdit *LE_Time;
+	TLabeledEdit *LE_Time0;
+	TLabeledEdit *LE_Time1;
+	TButton *ParsButton;
 	void __fastcall GetButtonClick(TObject *Sender);
 	void __fastcall CloseButtonClick(TObject *Sender);
 	void __fastcall FormActivate(TObject *Sender);
+	void __fastcall ParsButtonClick(TObject *Sender);
+
 private:	// User declarations
-	String __fastcall ConvertDate(unsigned int sUnixDate);
-	String s;
+	String 	ask_str, response;
+
+	String __fastcall GetJSONstr(String startStr, String finStr);
+	float  __fastcall GetJSONval(String fullStr, String startStr, String finStr);
+	String __fastcall ConvertDate(unsigned int sUnixDate, String &castYear, String &castTime);
+
 public:		// User declarations
 	__fastcall TMainForm(TComponent* Owner);
 };

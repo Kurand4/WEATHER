@@ -114,7 +114,6 @@ object MainForm: TMainForm
         Top = 80
         Width = 145
         Height = 21
-        Anchors = [akTop, akRight]
         KeyField = 'FieldID'
         ListField = 'FieldName'
         ListSource = DS_Fields
@@ -125,7 +124,6 @@ object MainForm: TMainForm
         Top = 40
         Width = 65
         Height = 21
-        Anchors = [akTop, akRight]
         DataField = 'Lat'
         DataSource = DS_Fields
         TabOrder = 3
@@ -135,7 +133,6 @@ object MainForm: TMainForm
         Top = 40
         Width = 57
         Height = 21
-        Anchors = [akTop, akRight]
         DataField = 'Lng'
         DataSource = DS_Fields
         TabOrder = 4
@@ -173,7 +170,7 @@ object MainForm: TMainForm
         EditLabel.Caption = 'Clouds (%)'
         TabOrder = 7
       end
-      object LE_Time: TLabeledEdit
+      object LE_Time0: TLabeledEdit
         Left = 24
         Top = 332
         Width = 116
@@ -184,15 +181,15 @@ object MainForm: TMainForm
         EditLabel.Caption = 'Time'
         TabOrder = 8
       end
-      object LE_Date: TLabeledEdit
+      object LE_Time1: TLabeledEdit
         Left = 24
         Top = 372
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
-        EditLabel.Width = 23
+        EditLabel.Width = 22
         EditLabel.Height = 13
-        EditLabel.Caption = 'Date'
+        EditLabel.Caption = 'Time'
         TabOrder = 9
       end
       object ParsButton: TButton
@@ -200,7 +197,6 @@ object MainForm: TMainForm
         Top = 513
         Width = 137
         Height = 41
-        Anchors = [akRight, akBottom]
         Caption = 'Parsing'
         TabOrder = 10
         OnClick = ParsButtonClick

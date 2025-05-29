@@ -47,7 +47,7 @@
 #include <StdCtrls.hpp>
 #include <Forms.hpp>
 
-#include <DBXJSON.hpp>
+//#include <DBXJSON.hpp>
 
 #include "IdBaseComponent.hpp"
 #include "IdComponent.hpp"
@@ -121,14 +121,23 @@ __published:	// IDE-managed Components
 	TMemo *Memo1;
 	TMemo *Memo2;
 	TDBChart *DBChart1;
-	TLabeledEdit *LE_Time0;
-	TLabeledEdit *LE_Time1;
+	TLabeledEdit *LE_Time;
+	TLabeledEdit *LE_Date;
+	TButton *ParsButton;
 	void __fastcall GetButtonClick(TObject *Sender);
 	void __fastcall CloseButtonClick(TObject *Sender);
 	void __fastcall FormActivate(TObject *Sender);
+	void __fastcall ParsButtonClick(TObject *Sender);
+
 private:	// User declarations
+	String 	ask_str, response;
+	String  castDate, castTime;
+
+	String __fastcall GetJSONstr(String startStr, String finStr);
+	float  __fastcall GetJSONval(String fullStr, String startStr);
+	String __fastcall GetJSONtime(String fullStr, String startStr);
 	String __fastcall ConvertDate(unsigned int sUnixDate, String &castYear, String &castTime);
-	String s;
+
 public:		// User declarations
 	__fastcall TMainForm(TComponent* Owner);
 };

@@ -1,7 +1,7 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
-# include <DateUtils.hpp>
+#include <DateUtils.hpp>
 
 #pragma hdrstop
 
@@ -83,11 +83,8 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 	TCursor Save_Cursor = Screen->Cursor;
 	TIdHTTP *idHTTP = new TIdHTTP(NULL);
 	idHTTP->Request->UserAgent = "Mozilla/5.0";
-	String ask_str, response;
 	String s1 = "111fc293274bd7a3", s2 = "201358adf50ce678";
 	String dt;  // unix time string - sec from 01.01.1970
-
-	TJSONObject *obj = new TJSONObject;
 
 	Screen->Cursor = crHourGlass;
 	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + DBEd_Lat->Text + "&lon=" + DBEd_Lng->Text + "&appid=" + s1 + s2;
@@ -95,58 +92,9 @@ void __fastcall TMainForm::GetButtonClick(TObject *Sender)
 	try {
 		response = idHTTP->Get(ask_str);
 		Memo1->Lines->Add(response);
-		// Парсинг JSON ответа:
-		TStringList * list = new TStringList;
-		list->StrictDelimiter = true;
-		list->Delimiter = '{';
-		list->DelimitedText = response;
-		for (int i = 0; i < list->Count; i++) {
-			Memo2->Lines->Add(String(i) + ". " + list->Strings[i]);
-		}
-		TStringList * list8 = new TStringList;
-		list8->StrictDelimiter = true;
-		list8->Delimiter = ':';
-		list8->DelimitedText = list->Strings[8];
-		for (int i = 0; i < list8->Count; i++) {
-			Memo2->Lines->Add(String(i) + ". " + list8->Strings[i]);
-		}
-		TStringList * listTemp = new TStringList;
-		listTemp->StrictDelimiter = true;
-		listTemp->Delimiter = ',';
-		listTemp->DelimitedText = list8->Strings[1];
-		for (int i = 0; i < listTemp->Count; i++) {
-			Memo2->Lines->Add(String(i) + ". " + listTemp->Strings[i]);
-		}
-		LE_Temp->Text = FloatToStrF(listTemp->Strings[0].ToDouble() - 272.15, ffFixed, 6, 1);
-
-		TStringList * listClouds = new TStringList;
-		listClouds->StrictDelimiter = true;
-		listClouds->Delimiter = '}';
-		listClouds->DelimitedText = list->Strings[12];
-		for (int i = 0; i < listClouds->Count; i++) {
-			Memo2->Lines->Add(String(i) + ". " + listClouds->Strings[i]);
-		}
-		s = listClouds->Strings[0];
-		LE_Clouds->Text = s.SubString(2, s.Length());
-
-		s  = listClouds->Strings[2];
-		dt = s.SubString(2, s.Length());
-
-//		LE_Time->Text = YearOf((TDateTime)dt);
-		String fullDate, castDate, castTime;
-
-		fullDate = ConvertDate(StrToInt64(dt)+3600*3, castDate, castTime);   //      StrToUInt
-		LE_Time0->Text = castDate;
-		LE_Time1->Text = castTime;
-		delete listClouds;
-		delete listTemp;
-		delete list8;
-		delete list;
-		list = NULL;
-		}
-	__finally {
-			delete idHTTP;
-			Screen->Cursor = Save_Cursor;
+	} __finally {
+		delete idHTTP;
+		Screen->Cursor = Save_Cursor;
 	}
 }
 //---------------------------------------------------------------------------
@@ -164,14 +112,99 @@ void __fastcall TMainForm::FormActivate(TObject *Sender)
 //---------------------------------------------------------------------------
 String __fastcall TMainForm::ConvertDate(unsigned int sUnixDate, String &castDate, String &castTime)
 {
-	unsigned int unixTime = sUnixDate; // Ваше Unix-время
+	unsigned int unixTime = sUnixDate; // Unix-время
 	TDateTime dateTime = UnixToDateTime(unixTime);
 
 	// Вывод в строку (формат по умолчанию)
 	String dateStr = DateTimeToStr(dateTime);
-	castDate = dateStr.SubString(1, 8);
+	castDate = dateStr.SubString(1, 10);
 	castTime = dateStr.SubString(12, 5);
 	return dateStr; // Пример: "21.07.2025 12:58:42"
+}
+//---------------------------------------------------------------------------
+void __fastcall TMainForm::ParsButtonClick(TObject *Sender)
+{
+	String weather, temp, dt;
+
+	weather = GetJSONstr("stations", "sys");
+	Memo2->Lines->Add(weather);
+
+	float tempVal = GetJSONval(weather, "temp");
+	LE_Temp->Text = FloatToStrF(tempVal - 272.15, ffFixed, 6, 1);
+
+	float cloudsVal = GetJSONval(weather, "clouds");
+	LE_Clouds->Text = FloatToStrF(cloudsVal, ffFixed, 6, 1);
+
+	float rainVal = GetJSONval(weather, "1h");
+	LE_Rain->Text = FloatToStrF(rainVal, ffFixed, 6, 1);
+
+	String timeVal = GetJSONtime(weather, "dt");
+	LE_Date->Text = castDate;
+	LE_Time->Text = castTime;
+
+/*
+Re: JSON пример
+Andrey Kurashvili
+Сегодня, 6:47
+Кому:вам
+{"coord":{"lon":28.756,"lat":60.717},"weather":[{"id":502,"main":"Rain","description":"heavy intensity rain","icon":"10d"}],"base":"
+stations","main":{"temp":286.14,"feels_like":286,"temp_min":286.14,"temp_max":286.14,"pressure":1011,"humidity":96,"sea_level":1011,"grnd_level":1009},"visibility":10000,"wind":{"speed":1.57,"deg":93,"gust":3.43},"rain":{"1h":10.29},"clouds":{"all":100},"dt":1748490335,
+"sys":{"country":"RU","sunrise":1748479916,"sunset":1748545991},"timezone":10800,"id":470546,"name":"Vyborg","cod":200}
+*/
+
+}
+//---------------------------------------------------------------------------
+String __fastcall TMainForm::GetJSONstr(String startStr, String finStr)
+{
+	int beg = response.Pos(startStr) + startStr.Length();
+	int fin = response.Pos(finStr);
+	return response.SubString(beg, fin);
+}
+//---------------------------------------------------------------------------
+float __fastcall TMainForm::GetJSONval(String fullStr, String startStr)
+{
+	AnsiString 	s = "";
+	float       res;
+	bool        found = false;
+
+	if (fullStr.Pos(startStr)) {
+		int beg = fullStr.Pos(startStr) + startStr.Length() + 2;
+		for (int i = beg; i < fullStr.Length(); i++) {
+			if (isdigit(fullStr[i]) || (fullStr[i] == '.' && found)) {
+				s += fullStr[i];
+				found = true;
+			} else {
+				if (found) break;
+			}
+		}
+	}
+	if (s.Length()) {
+		res = s.ToDouble();
+	}
+	return res;
+}
+//---------------------------------------------------------------------------
+String __fastcall TMainForm::GetJSONtime(String fullStr, String startStr)
+{
+	AnsiString 	    s = "";
+	float       res;
+	bool        found = false;
+	String dt;  // unix time string - sec from 01.01.1970
+
+	int beg = fullStr.Pos(startStr) + startStr.Length() + 2;
+	for (int i = beg; i < fullStr.Length(); i++) {
+		if (isdigit(fullStr[i]) || (fullStr[i] == '.' && found)) {
+			s += fullStr[i];
+			found = true;
+		} else {
+			if (found) break;
+		}
+	}
+	dt = s;
+	if (s.Length()) {
+		ConvertDate(StrToInt64(dt)+3600*3, castDate, castTime);
+	}
+	return res;
 }
 //---------------------------------------------------------------------------
 
