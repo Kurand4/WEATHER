@@ -54,8 +54,6 @@ object MainForm: TMainForm
         item
           Width = 50
         end>
-      ExplicitLeft = 0
-      ExplicitTop = 772
     end
     object Panel2: TPanel
       Left = 1
@@ -88,11 +86,23 @@ object MainForm: TMainForm
       Align = alRight
       Caption = ' '
       TabOrder = 2
-      ExplicitLeft = 995
-      ExplicitTop = -2
       DesignSize = (
         188
         709)
+      object Label1: TLabel
+        Left = 24
+        Top = 21
+        Width = 15
+        Height = 13
+        Caption = 'Lat'
+      end
+      object Label2: TLabel
+        Left = 112
+        Top = 21
+        Width = 17
+        Height = 13
+        Caption = 'Lon'
+      end
       object CloseButton: TButton
         Left = 24
         Top = 650
@@ -105,7 +115,7 @@ object MainForm: TMainForm
       end
       object GetButton: TButton
         Left = 24
-        Top = 522
+        Top = 466
         Width = 137
         Height = 41
         Anchors = [akRight, akBottom]
@@ -118,6 +128,7 @@ object MainForm: TMainForm
         Top = 80
         Width = 145
         Height = 21
+        Anchors = [akTop, akRight]
         KeyField = 'FieldID'
         ListField = 'FieldName'
         ListSource = DS_Fields
@@ -128,6 +139,7 @@ object MainForm: TMainForm
         Top = 40
         Width = 65
         Height = 21
+        Anchors = [akTop, akRight]
         DataField = 'Lat'
         DataSource = DS_Fields
         TabOrder = 3
@@ -137,6 +149,7 @@ object MainForm: TMainForm
         Top = 40
         Width = 57
         Height = 21
+        Anchors = [akTop, akRight]
         DataField = 'Lng'
         DataSource = DS_Fields
         TabOrder = 4
@@ -185,6 +198,27 @@ object MainForm: TMainForm
         EditLabel.Caption = 'Time'
         TabOrder = 8
       end
+      object LE_Date: TLabeledEdit
+        Left = 24
+        Top = 372
+        Width = 116
+        Height = 21
+        Anchors = [akTop, akRight]
+        EditLabel.Width = 23
+        EditLabel.Height = 13
+        EditLabel.Caption = 'Date'
+        TabOrder = 9
+      end
+      object DBAddButton: TButton
+        Left = 24
+        Top = 513
+        Width = 137
+        Height = 41
+        Anchors = [akRight, akBottom]
+        Caption = 'Add to DB'
+        TabOrder = 10
+        OnClick = DBAddButtonClick
+      end
     end
     object Panel4: TPanel
       Left = 1
@@ -194,9 +228,6 @@ object MainForm: TMainForm
       Align = alClient
       Caption = ' '
       TabOrder = 3
-      ExplicitLeft = 210
-      ExplicitTop = -41
-      ExplicitWidth = 970
       object PageControl1: TPageControl
         Left = 1
         Top = 1
@@ -207,28 +238,93 @@ object MainForm: TMainForm
         TabOrder = 0
         object TabSheet1: TTabSheet
           Caption = 'TabSheet1'
-          DesignSize = (
-            978
-            679)
-          object Memo1: TMemo
-            Left = 8
-            Top = 8
-            Width = 961
-            Height = 145
-            Anchors = [akLeft, akTop, akRight]
-            ScrollBars = ssBoth
+          object DBGrid1: TDBGrid
+            Left = 32
+            Top = 240
+            Width = 521
+            Height = 385
+            DataSource = DS_Weather
             TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'wDate'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'wTime'
+                Width = 58
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Temp'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Clouds'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Rain'
+                Width = 67
+                Visible = True
+              end>
           end
-          object Memo2: TMemo
-            Left = 8
-            Top = 157
-            Width = 961
-            Height = 522
-            Anchors = [akLeft, akTop, akRight, akBottom]
-            Lines.Strings = (
-              'Memo2')
-            ScrollBars = ssBoth
+          object DBGrid2: TDBGrid
+            Left = 32
+            Top = 15
+            Width = 521
+            Height = 202
+            DataSource = DS_Fields
             TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'Tahoma'
+            TitleFont.Style = []
+            OnCellClick = DBGrid2CellClick
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'FieldID'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'FieldName'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Lat'
+                Title.Alignment = taRightJustify
+                Width = 77
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Lng'
+                Title.Alignment = taRightJustify
+                Width = 73
+                Visible = True
+              end>
+          end
+          object DBNavigator1: TDBNavigator
+            Left = 313
+            Top = 631
+            Width = 240
+            Height = 25
+            DataSource = DS_Weather
+            TabOrder = 2
           end
         end
         object TabSheet2: TTabSheet
@@ -244,10 +340,6 @@ object MainForm: TMainForm
             View3D = False
             Align = alClient
             TabOrder = 0
-            ExplicitLeft = 112
-            ExplicitTop = 112
-            ExplicitWidth = 361
-            ExplicitHeight = 273
           end
         end
       end
@@ -255,9 +347,8 @@ object MainForm: TMainForm
   end
   object DB: TADConnection
     Params.Strings = (
-      'Database=C:\AFI\WEATHER\OpenWeather.db'
+      'Database=C:/AFI/WEATHER/OpenWeather.db'
       'DriverID=SQLite')
-    Connected = True
     LoginPrompt = False
     Left = 48
     Top = 48
@@ -272,20 +363,39 @@ object MainForm: TMainForm
     Request.Host = 'https://api.weather.yandex.ru'
     Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
     HTTPOptions = [hoForceEncodeParams]
-    Left = 648
-    Top = 208
+    Left = 1016
+    Top = 128
   end
   object T_Fields: TADTable
     IndexFieldNames = 'FieldID'
     Connection = DB
     UpdateOptions.UpdateTableName = 't_Fields'
     TableName = 't_Fields'
-    Left = 1000
+    Left = 520
     Top = 128
+    object T_FieldsFieldID: TADAutoIncField
+      FieldName = 'FieldID'
+      Origin = 'FieldID'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+    end
+    object T_FieldsFieldName: TStringField
+      FieldName = 'FieldName'
+      Origin = 'FieldName'
+      Size = 33
+    end
+    object T_FieldsLat: TFloatField
+      FieldName = 'Lat'
+      Origin = 'Lat'
+    end
+    object T_FieldsLng: TFloatField
+      FieldName = 'Lng'
+      Origin = 'Lng'
+    end
   end
   object DS_Fields: TDataSource
     DataSet = T_Fields
-    Left = 1056
+    Left = 576
     Top = 128
   end
   object ADPhysSQLiteDriverLink1: TADPhysSQLiteDriverLink
@@ -299,5 +409,71 @@ object MainForm: TMainForm
   object ADGUIxWaitCursor1: TADGUIxWaitCursor
     Left = 432
     Top = 48
+  end
+  object T_Weather: TADTable
+    IndexFieldNames = 'wID'
+    Connection = DB
+    UpdateOptions.UpdateTableName = 'T_Weather'
+    TableName = 'T_Weather'
+    Left = 816
+    Top = 200
+    object T_WeatherwID: TADAutoIncField
+      FieldName = 'wID'
+      Origin = 'wID'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+    end
+    object T_WeatherFieldID: TIntegerField
+      FieldName = 'FieldID'
+      Origin = 'FieldID'
+    end
+    object T_WeatherwDate: TStringField
+      FieldName = 'wDate'
+      Origin = 'wDate'
+      Size = 10
+    end
+    object T_WeatherwTime: TStringField
+      FieldName = 'wTime'
+      Origin = 'wTime'
+      Size = 5
+    end
+    object T_WeatherTemp: TFloatField
+      FieldName = 'Temp'
+      Origin = '"Temp"'
+      DisplayFormat = '#0.0'
+    end
+    object T_WeatherClouds: TIntegerField
+      FieldName = 'Clouds'
+      Origin = 'Clouds'
+    end
+    object T_WeatherRain: TLargeintField
+      FieldName = 'Rain'
+      Origin = 'Rain'
+      DisplayFormat = '#0.0'
+    end
+  end
+  object DS_Weather: TDataSource
+    DataSet = Q_Weather
+    Left = 680
+    Top = 280
+  end
+  object Q_Weather: TADQuery
+    BeforeOpen = Q_WeatherBeforeOpen
+    MasterSource = DS_Fields
+    MasterFields = 'FieldID'
+    Connection = DB
+    SQL.Strings = (
+      'SELECT * FROM t_Weather'
+      'WHERE FieldID=:FieldID')
+    Left = 600
+    Top = 280
+    ParamData = <
+      item
+        Name = 'FIELDID'
+        DataType = ftAutoInc
+        ParamType = ptInput
+        Size = 4
+        Value = Null
+      end>
   end
 end

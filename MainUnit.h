@@ -57,7 +57,15 @@
 //#include <System.Net.HttpClient.hpp>
 #include "IdBaseComponent.hpp"
 #include "IdComponent.hpp"
-#include "IdHTTP.hpp"
+#include <IdHTTP.hpp>
+#include <IdSSL.hpp>
+#include <IdSSLOpenSSL.hpp>
+#include "IdIOHandler.hpp"
+#include "IdIOHandlerSocket.hpp"
+#include "IdIOHandlerStack.hpp"
+#include <DBGrids.hpp>
+#include <Grids.hpp>
+#include <DBXJSON.hpp>
 #include "IdTCPClient.hpp"
 #include "IdTCPConnection.hpp"
 #include <ExtCtrls.hpp>
@@ -88,6 +96,13 @@
 #include "DBChart.hpp"
 #include "TeEngine.hpp"
 #include "TeeProcs.hpp"
+#include <DBGrids.hpp>
+#include <Grids.hpp>
+#include "IdIOHandler.hpp"
+#include "IdIOHandlerSocket.hpp"
+#include "IdIOHandlerStack.hpp"
+#include "IdSSL.hpp"
+#include "IdSSLOpenSSL.hpp"
 //---------------------------------------------------------------------------
 class TMainForm : public TForm
 {
@@ -118,20 +133,51 @@ __published:	// IDE-managed Components
 	TPageControl *PageControl1;
 	TTabSheet *TabSheet1;
 	TTabSheet *TabSheet2;
-	TMemo *Memo1;
-	TMemo *Memo2;
 	TDBChart *DBChart1;
 	TLabeledEdit *LE_Time;
 	TLabeledEdit *LE_Date;
-	TButton *ParsButton;
+	TButton *DBAddButton;
+	TADTable *T_Weather;
+	TDataSource *DS_Weather;
+	TLabel *Label1;
+	TLabel *Label2;
+	TDBGrid *DBGrid1;
+	TDBGrid *DBGrid2;
+	TADAutoIncField *T_WeatherwID;
+	TIntegerField *T_WeatherFieldID;
+	TStringField *T_WeatherwDate;
+	TStringField *T_WeatherwTime;
+	TFloatField *T_WeatherTemp;
+	TIntegerField *T_WeatherClouds;
+	TLargeintField *T_WeatherRain;
+	TADAutoIncField *T_FieldsFieldID;
+	TStringField *T_FieldsFieldName;
+	TFloatField *T_FieldsLat;
+	TFloatField *T_FieldsLng;
+	TDBNavigator *DBNavigator1;
+	TADQuery *Q_Weather;
+	TIdSSLIOHandlerSocketOpenSSL *IdSSLIOHandlerSocketOpenSSL1;
+	TButton *ArchiveButton;
+	TMemo *Memo1;
+	TTabSheet *TabSheet3;
+	TDateTimePicker *DateTimePicker1;
+	TLabeledEdit *edUnix;
 	void __fastcall GetButtonClick(TObject *Sender);
 	void __fastcall CloseButtonClick(TObject *Sender);
 	void __fastcall FormActivate(TObject *Sender);
-	void __fastcall ParsButtonClick(TObject *Sender);
+	void __fastcall DBAddButtonClick(TObject *Sender);
+	void __fastcall Q_WeatherBeforeOpen(TDataSet *DataSet);
+	void __fastcall DBGrid2CellClick(TColumn *Column);
+	void __fastcall ArchiveButtonClick(TObject *Sender);
+	void __fastcall DateTimePicker1Change(TObject *Sender);
 
 private:	// User declarations
+	TDateTime dt;
+	String  sAPIkey;
+	String  sql;
 	String 	ask_str, response;
 	String  castDate, castTime;
+	String  sTemp, sClouds, sRain;
 
 	String __fastcall GetJSONstr(String startStr, String finStr);
 	float  __fastcall GetJSONval(String fullStr, String startStr);

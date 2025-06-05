@@ -3,7 +3,7 @@ object MainForm: TMainForm
   Top = 154
   Caption = 'OpenWeatherMap '
   ClientHeight = 791
-  ClientWidth = 1079
+  ClientWidth = 1181
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,7 +18,7 @@ object MainForm: TMainForm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1079
+    Width = 1181
     Height = 791
     Align = alClient
     Caption = ' '
@@ -26,7 +26,7 @@ object MainForm: TMainForm
     object Splitter1: TSplitter
       Left = 1
       Top = 710
-      Width = 1077
+      Width = 1179
       Height = 3
       Cursor = crVSplit
       Align = alBottom
@@ -34,7 +34,7 @@ object MainForm: TMainForm
       ExplicitWidth = 575
     end
     object Splitter2: TSplitter
-      Left = 878
+      Left = 989
       Top = 1
       Height = 709
       Align = alRight
@@ -45,11 +45,11 @@ object MainForm: TMainForm
     object StatusBar1: TStatusBar
       Left = 1
       Top = 771
-      Width = 1077
+      Width = 1179
       Height = 19
       Panels = <
         item
-          Width = 999
+          Width = 777
         end
         item
           Width = 50
@@ -58,7 +58,7 @@ object MainForm: TMainForm
     object Panel2: TPanel
       Left = 1
       Top = 713
-      Width = 1077
+      Width = 1179
       Height = 58
       Align = alBottom
       Caption = ' '
@@ -79,15 +79,15 @@ object MainForm: TMainForm
       end
     end
     object Panel3: TPanel
-      Left = 881
+      Left = 992
       Top = 1
-      Width = 197
+      Width = 188
       Height = 709
       Align = alRight
       Caption = ' '
       TabOrder = 2
       DesignSize = (
-        197
+        188
         709)
       object Label1: TLabel
         Left = 24
@@ -104,7 +104,7 @@ object MainForm: TMainForm
         Caption = 'Lon'
       end
       object CloseButton: TButton
-        Left = 33
+        Left = 24
         Top = 650
         Width = 137
         Height = 41
@@ -114,8 +114,8 @@ object MainForm: TMainForm
         OnClick = CloseButtonClick
       end
       object GetButton: TButton
-        Left = 33
-        Top = 482
+        Left = 24
+        Top = 466
         Width = 137
         Height = 41
         Anchors = [akRight, akBottom]
@@ -124,7 +124,7 @@ object MainForm: TMainForm
         OnClick = GetButtonClick
       end
       object DBLCB_Fields: TDBLookupComboBox
-        Left = 33
+        Left = 24
         Top = 80
         Width = 145
         Height = 21
@@ -135,7 +135,7 @@ object MainForm: TMainForm
         TabOrder = 2
       end
       object DBEd_Lat: TDBEdit
-        Left = 33
+        Left = 24
         Top = 40
         Width = 65
         Height = 21
@@ -145,7 +145,7 @@ object MainForm: TMainForm
         TabOrder = 3
       end
       object DBEd_Lng: TDBEdit
-        Left = 121
+        Left = 112
         Top = 40
         Width = 57
         Height = 21
@@ -155,8 +155,8 @@ object MainForm: TMainForm
         TabOrder = 4
       end
       object LE_Temp: TLabeledEdit
-        Left = 33
-        Top = 244
+        Left = 24
+        Top = 196
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -166,8 +166,8 @@ object MainForm: TMainForm
         TabOrder = 5
       end
       object LE_Rain: TLabeledEdit
-        Left = 33
-        Top = 332
+        Left = 24
+        Top = 284
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -177,8 +177,8 @@ object MainForm: TMainForm
         TabOrder = 6
       end
       object LE_Clouds: TLabeledEdit
-        Left = 33
-        Top = 284
+        Left = 24
+        Top = 236
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -188,8 +188,8 @@ object MainForm: TMainForm
         TabOrder = 7
       end
       object LE_Time: TLabeledEdit
-        Left = 33
-        Top = 380
+        Left = 24
+        Top = 332
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -199,8 +199,8 @@ object MainForm: TMainForm
         TabOrder = 8
       end
       object LE_Date: TLabeledEdit
-        Left = 33
-        Top = 420
+        Left = 24
+        Top = 372
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -210,8 +210,8 @@ object MainForm: TMainForm
         TabOrder = 9
       end
       object DBAddButton: TButton
-        Left = 33
-        Top = 529
+        Left = 24
+        Top = 513
         Width = 137
         Height = 41
         Anchors = [akRight, akBottom]
@@ -219,41 +219,11 @@ object MainForm: TMainForm
         TabOrder = 10
         OnClick = DBAddButtonClick
       end
-      object ArchiveButton: TButton
-        Left = 32
-        Top = 603
-        Width = 137
-        Height = 41
-        Anchors = [akRight, akBottom]
-        Caption = 'Archive'
-        TabOrder = 11
-        OnClick = ArchiveButtonClick
-      end
-      object DateTimePicker1: TDateTimePicker
-        Left = 32
-        Top = 168
-        Width = 121
-        Height = 21
-        Date = 45813.210767905090000000
-        Time = 45813.210767905090000000
-        TabOrder = 12
-        OnChange = DateTimePicker1Change
-      end
-      object edUnix: TLabeledEdit
-        Left = 32
-        Top = 141
-        Width = 121
-        Height = 21
-        EditLabel.Width = 53
-        EditLabel.Height = 13
-        EditLabel.Caption = 'UNIX_Date'
-        TabOrder = 13
-      end
     end
     object Panel4: TPanel
       Left = 1
       Top = 1
-      Width = 877
+      Width = 988
       Height = 709
       Align = alClient
       Caption = ' '
@@ -261,7 +231,7 @@ object MainForm: TMainForm
       object PageControl1: TPageControl
         Left = 1
         Top = 1
-        Width = 875
+        Width = 986
         Height = 707
         ActivePage = TabSheet1
         Align = alClient
@@ -321,7 +291,6 @@ object MainForm: TMainForm
             TitleFont.Height = -11
             TitleFont.Name = 'Tahoma'
             TitleFont.Style = []
-            OnCellClick = DBGrid2CellClick
             Columns = <
               item
                 Expanded = False
@@ -356,15 +325,6 @@ object MainForm: TMainForm
             DataSource = DS_Weather
             TabOrder = 2
           end
-          object Memo1: TMemo
-            Left = 559
-            Top = 15
-            Width = 305
-            Height = 610
-            Lines.Strings = (
-              'Memo1')
-            TabOrder = 3
-          end
         end
         object TabSheet2: TTabSheet
           Caption = 'TabSheet2'
@@ -372,7 +332,7 @@ object MainForm: TMainForm
           object DBChart1: TDBChart
             Left = 0
             Top = 0
-            Width = 867
+            Width = 978
             Height = 679
             Title.Text.Strings = (
               'TDBChart')
@@ -380,10 +340,6 @@ object MainForm: TMainForm
             Align = alClient
             TabOrder = 0
           end
-        end
-        object TabSheet3: TTabSheet
-          Caption = 'TabSheet3'
-          ImageIndex = 2
         end
       end
     end
@@ -406,15 +362,15 @@ object MainForm: TMainForm
     Request.Host = 'https://api.weather.yandex.ru'
     Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
     HTTPOptions = [hoForceEncodeParams]
-    Left = 104
-    Top = 584
+    Left = 1016
+    Top = 128
   end
   object T_Fields: TADTable
     IndexFieldNames = 'FieldID'
     Connection = DB
     UpdateOptions.UpdateTableName = 't_Fields'
     TableName = 't_Fields'
-    Left = 808
+    Left = 520
     Top = 128
     object T_FieldsFieldID: TADAutoIncField
       FieldName = 'FieldID'
@@ -438,7 +394,7 @@ object MainForm: TMainForm
   end
   object DS_Fields: TDataSource
     DataSet = T_Fields
-    Left = 856
+    Left = 576
     Top = 128
   end
   object ADPhysSQLiteDriverLink1: TADPhysSQLiteDriverLink
@@ -450,7 +406,7 @@ object MainForm: TMainForm
     Top = 48
   end
   object ADGUIxWaitCursor1: TADGUIxWaitCursor
-    Left = 448
+    Left = 432
     Top = 48
   end
   object T_Weather: TADTable
@@ -458,8 +414,8 @@ object MainForm: TMainForm
     Connection = DB
     UpdateOptions.UpdateTableName = 'T_Weather'
     TableName = 'T_Weather'
-    Left = 424
-    Top = 720
+    Left = 816
+    Top = 200
     object T_WeatherwID: TADAutoIncField
       FieldName = 'wID'
       Origin = 'wID'
@@ -497,8 +453,8 @@ object MainForm: TMainForm
   end
   object DS_Weather: TDataSource
     DataSet = Q_Weather
-    Left = 600
-    Top = 720
+    Left = 680
+    Top = 280
   end
   object Q_Weather: TADQuery
     BeforeOpen = Q_WeatherBeforeOpen
@@ -508,8 +464,8 @@ object MainForm: TMainForm
     SQL.Strings = (
       'SELECT * FROM t_Weather'
       'WHERE FieldID=:FieldID')
-    Left = 512
-    Top = 720
+    Left = 600
+    Top = 280
     ParamData = <
       item
         Name = 'FIELDID'
@@ -518,15 +474,5 @@ object MainForm: TMainForm
         Size = 4
         Value = Null
       end>
-  end
-  object IdSSLIOHandlerSocketOpenSSL1: TIdSSLIOHandlerSocketOpenSSL
-    MaxLineAction = maException
-    Port = 0
-    DefaultPort = 0
-    SSLOptions.Mode = sslmUnassigned
-    SSLOptions.VerifyMode = []
-    SSLOptions.VerifyDepth = 0
-    Left = 104
-    Top = 528
   end
 end

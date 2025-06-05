@@ -148,13 +148,10 @@ void __fastcall TMainForm::CloseButtonClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainForm::FormActivate(TObject *Sender)
 {
-	dt = DateTimePicker1->DateTime;
-
 	DB->Connected = true;
 	T_Fields->Active = true;
 	DBLCB_Fields->KeyValue = T_Fields->FieldByName("FieldID")->AsInteger;
 	Q_Weather->Open("");
-	edUnix->Text = FloatToStr(Dateutils::DateTimeToUnix(StrToDateTime(dt.DateString() )));
 }
 //---------------------------------------------------------------------------
 String __fastcall TMainForm::ConvertDate(unsigned int sUnixDate, String &castDate, String &castTime)
@@ -269,29 +266,23 @@ void __fastcall TMainForm::ArchiveButtonClick(TObject *Sender)
 	String lang = "ru";
 
 	// Установка даты (архив доступен с 1 января 1979 года)
-//	TDateTime archiveDate = StrToDate("02.06.2025"); // пример даты
-//	unsigned int unixTime = 1748860677;
-	unsigned int unixTime = edUnix->Text.ToInt();
+	TDateTime archiveDate = StrToDate("02.06.2025"); // пример даты
+	unsigned int unixTime = 1748860677;
+//	unsigned int unixTime = DateTimeToUnix(archiveDate);
 
 // Формирование URL
-	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + DBEd_Lat->Text + "&lon=" + DBEd_Lng->Text + "&dt=" + (String)unixTime + "&appid=" + apiKey;
+	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=55.7558&lon=37.6173&dt=" + (String)unixTime + "&appid=" + apiKey;
 //	ask_str = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=55.7558&lon=37.6173&dt=" + IntToStr(unixTime) + "&appid=" + apiKey + "&units=" + units + "&lang=" + lang;
 	StatusBar1->Panels->Items[0]->Text = ask_str;
 	try {
 		response = idHTTP->Get(ask_str);
-		Memo1->Lines->Add(response);
 //		Memo1->Lines->Add(response);
 	} __finally {
 		delete idHTTP;
 	}
-}
-//---------------------------------------------------------------------------
-void __fastcall TMainForm::DateTimePicker1Change(TObject *Sender)
-{
-	dt = DateTimePicker1->DateTime;
-	edUnix->Text = FloatToStr(Dateutils::DateTimeToUnix(StrToDateTime(dt.DateString() )));
-//	__int64 unixDate = DateTimeToUnix(const AValue: TDateTime);
-//	TDateTime date = UnixToDateTime(const __int64 AValue, bool AReturnUTC = true);     DateUtils::
+
+
+
 }
 //---------------------------------------------------------------------------
 

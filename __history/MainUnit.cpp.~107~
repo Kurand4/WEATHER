@@ -148,13 +148,10 @@ void __fastcall TMainForm::CloseButtonClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainForm::FormActivate(TObject *Sender)
 {
-	dt = DateTimePicker1->DateTime;
-
 	DB->Connected = true;
 	T_Fields->Active = true;
 	DBLCB_Fields->KeyValue = T_Fields->FieldByName("FieldID")->AsInteger;
 	Q_Weather->Open("");
-	edUnix->Text = FloatToStr(Dateutils::DateTimeToUnix(StrToDateTime(dt.DateString() )));
 }
 //---------------------------------------------------------------------------
 String __fastcall TMainForm::ConvertDate(unsigned int sUnixDate, String &castDate, String &castTime)
@@ -253,13 +250,10 @@ void __fastcall TMainForm::DBGrid2CellClick(TColumn *Column)
 void __fastcall TMainForm::ArchiveButtonClick(TObject *Sender)
 {
 // Настройка HTTP-клиента
-//	IdHTTP1->IOHandler = IdSSLIOHandlerSocketOpenSSL1;
-//	IdHTTP1->Request->UserAgent = "Mozilla/5.0";
-//	IdHTTP1->Request->Accept = "application/json";
-
+	IdHTTP1->IOHandler = IdSSLIOHandlerSocketOpenSSL1;
+	IdHTTP1->Request->UserAgent = "Mozilla/5.0";
+	IdHTTP1->Request->Accept = "application/json";
 //	IdSSLIOHandlerSocketOpenSSL1->SSLOptions->Method = sslvTLSv1_2;
-	TIdHTTP *idHTTP = new TIdHTTP(NULL);
-	idHTTP->Request->UserAgent = "Mozilla/5.0";
 
 	// Параметры запроса
 	String apiKey = sAPIkey;
@@ -269,29 +263,23 @@ void __fastcall TMainForm::ArchiveButtonClick(TObject *Sender)
 	String lang = "ru";
 
 	// Установка даты (архив доступен с 1 января 1979 года)
-//	TDateTime archiveDate = StrToDate("02.06.2025"); // пример даты
-//	unsigned int unixTime = 1748860677;
-	unsigned int unixTime = edUnix->Text.ToInt();
+	TDateTime archiveDate = StrToDate("02.06.2025"); // пример даты
+	unsigned int unixTime = 1747218144;
+//	unsigned int unixTime = DateTimeToUnix(archiveDate);
 
 // Формирование URL
-	ask_str = "http://api.openweathermap.org/data/2.5/weather?lat=" + DBEd_Lat->Text + "&lon=" + DBEd_Lng->Text + "&dt=" + (String)unixTime + "&appid=" + apiKey;
+	ask_str = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=55.7558&lon=37.6173&dt=" + IntToStr(unixTime) + "&appid=" + apiKey;
 //	ask_str = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=55.7558&lon=37.6173&dt=" + IntToStr(unixTime) + "&appid=" + apiKey + "&units=" + units + "&lang=" + lang;
 	StatusBar1->Panels->Items[0]->Text = ask_str;
 	try {
-		response = idHTTP->Get(ask_str);
-		Memo1->Lines->Add(response);
+		response = IdHTTP1->Get(ask_str);
 //		Memo1->Lines->Add(response);
 	} __finally {
-		delete idHTTP;
+		delete IdHTTP1;
 	}
-}
-//---------------------------------------------------------------------------
-void __fastcall TMainForm::DateTimePicker1Change(TObject *Sender)
-{
-	dt = DateTimePicker1->DateTime;
-	edUnix->Text = FloatToStr(Dateutils::DateTimeToUnix(StrToDateTime(dt.DateString() )));
-//	__int64 unixDate = DateTimeToUnix(const AValue: TDateTime);
-//	TDateTime date = UnixToDateTime(const __int64 AValue, bool AReturnUTC = true);     DateUtils::
+
+
+
 }
 //---------------------------------------------------------------------------
 

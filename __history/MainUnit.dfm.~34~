@@ -23,6 +23,7 @@ object MainForm: TMainForm
     Align = alClient
     Caption = ' '
     TabOrder = 0
+    ExplicitWidth = 1181
     object Splitter1: TSplitter
       Left = 1
       Top = 710
@@ -54,6 +55,7 @@ object MainForm: TMainForm
         item
           Width = 50
         end>
+      ExplicitWidth = 1179
     end
     object Panel2: TPanel
       Left = 1
@@ -63,6 +65,9 @@ object MainForm: TMainForm
       Align = alBottom
       Caption = ' '
       TabOrder = 1
+      ExplicitLeft = 2
+      ExplicitTop = 715
+      ExplicitWidth = 936
       object RadioGroup1: TRadioGroup
         Left = 16
         Top = 3
@@ -86,6 +91,7 @@ object MainForm: TMainForm
       Align = alRight
       Caption = ' '
       TabOrder = 2
+      ExplicitLeft = 1328
       DesignSize = (
         197
         709)
@@ -112,10 +118,11 @@ object MainForm: TMainForm
         Caption = 'Close'
         TabOrder = 0
         OnClick = CloseButtonClick
+        ExplicitLeft = 24
       end
       object GetButton: TButton
         Left = 33
-        Top = 482
+        Top = 442
         Width = 137
         Height = 41
         Anchors = [akRight, akBottom]
@@ -133,6 +140,7 @@ object MainForm: TMainForm
         ListField = 'FieldName'
         ListSource = DS_Fields
         TabOrder = 2
+        ExplicitLeft = 24
       end
       object DBEd_Lat: TDBEdit
         Left = 33
@@ -143,6 +151,7 @@ object MainForm: TMainForm
         DataField = 'Lat'
         DataSource = DS_Fields
         TabOrder = 3
+        ExplicitLeft = 24
       end
       object DBEd_Lng: TDBEdit
         Left = 121
@@ -153,10 +162,11 @@ object MainForm: TMainForm
         DataField = 'Lng'
         DataSource = DS_Fields
         TabOrder = 4
+        ExplicitLeft = 112
       end
       object LE_Temp: TLabeledEdit
         Left = 33
-        Top = 244
+        Top = 196
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -164,10 +174,11 @@ object MainForm: TMainForm
         EditLabel.Height = 13
         EditLabel.Caption = 'Temperature (C)'
         TabOrder = 5
+        ExplicitLeft = 24
       end
       object LE_Rain: TLabeledEdit
         Left = 33
-        Top = 332
+        Top = 284
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -175,10 +186,11 @@ object MainForm: TMainForm
         EditLabel.Height = 13
         EditLabel.Caption = 'Rain (mm/h)'
         TabOrder = 6
+        ExplicitLeft = 24
       end
       object LE_Clouds: TLabeledEdit
         Left = 33
-        Top = 284
+        Top = 236
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -186,10 +198,11 @@ object MainForm: TMainForm
         EditLabel.Height = 13
         EditLabel.Caption = 'Clouds (%)'
         TabOrder = 7
+        ExplicitLeft = 24
       end
       object LE_Time: TLabeledEdit
         Left = 33
-        Top = 380
+        Top = 332
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -197,10 +210,11 @@ object MainForm: TMainForm
         EditLabel.Height = 13
         EditLabel.Caption = 'Time'
         TabOrder = 8
+        ExplicitLeft = 24
       end
       object LE_Date: TLabeledEdit
         Left = 33
-        Top = 420
+        Top = 372
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
@@ -208,10 +222,11 @@ object MainForm: TMainForm
         EditLabel.Height = 13
         EditLabel.Caption = 'Date'
         TabOrder = 9
+        ExplicitLeft = 24
       end
       object DBAddButton: TButton
         Left = 33
-        Top = 529
+        Top = 489
         Width = 137
         Height = 41
         Anchors = [akRight, akBottom]
@@ -229,26 +244,6 @@ object MainForm: TMainForm
         TabOrder = 11
         OnClick = ArchiveButtonClick
       end
-      object DateTimePicker1: TDateTimePicker
-        Left = 32
-        Top = 168
-        Width = 121
-        Height = 21
-        Date = 45813.210767905090000000
-        Time = 45813.210767905090000000
-        TabOrder = 12
-        OnChange = DateTimePicker1Change
-      end
-      object edUnix: TLabeledEdit
-        Left = 32
-        Top = 141
-        Width = 121
-        Height = 21
-        EditLabel.Width = 53
-        EditLabel.Height = 13
-        EditLabel.Caption = 'UNIX_Date'
-        TabOrder = 13
-      end
     end
     object Panel4: TPanel
       Left = 1
@@ -258,6 +253,7 @@ object MainForm: TMainForm
       Align = alClient
       Caption = ' '
       TabOrder = 3
+      ExplicitWidth = 988
       object PageControl1: TPageControl
         Left = 1
         Top = 1
@@ -266,8 +262,10 @@ object MainForm: TMainForm
         ActivePage = TabSheet1
         Align = alClient
         TabOrder = 0
+        ExplicitWidth = 1046
         object TabSheet1: TTabSheet
           Caption = 'TabSheet1'
+          ExplicitWidth = 978
           object DBGrid1: TDBGrid
             Left = 32
             Top = 240
@@ -356,19 +354,11 @@ object MainForm: TMainForm
             DataSource = DS_Weather
             TabOrder = 2
           end
-          object Memo1: TMemo
-            Left = 559
-            Top = 15
-            Width = 305
-            Height = 610
-            Lines.Strings = (
-              'Memo1')
-            TabOrder = 3
-          end
         end
         object TabSheet2: TTabSheet
           Caption = 'TabSheet2'
           ImageIndex = 1
+          ExplicitWidth = 978
           object DBChart1: TDBChart
             Left = 0
             Top = 0
@@ -379,11 +369,8 @@ object MainForm: TMainForm
             View3D = False
             Align = alClient
             TabOrder = 0
+            ExplicitWidth = 929
           end
-        end
-        object TabSheet3: TTabSheet
-          Caption = 'TabSheet3'
-          ImageIndex = 2
         end
       end
     end
