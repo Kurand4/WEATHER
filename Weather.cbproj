@@ -61,6 +61,10 @@
 			<ILINK_TranslatedLibraryPath>$(BDS)\lib\$(LANGDIR)\release;$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
 		</PropertyGroup>
 		<ItemGroup>
+			<CppCompile Include="Weather.cpp">
+				<BuildOrder>0</BuildOrder>
+			</CppCompile>
+			<None Include="ModelSupport_Weather\default.txaPackage"/>
 			<CppCompile Include="MainUnit.cpp">
 				<Form>MainForm</Form>
 				<DependentOn>MainUnit.h</DependentOn>
@@ -69,10 +73,6 @@
 			<ResFiles Include="Weather.res">
 				<BuildOrder>1</BuildOrder>
 			</ResFiles>
-			<CppCompile Include="Weather.cpp">
-				<BuildOrder>0</BuildOrder>
-			</CppCompile>
-			<None Include="ModelSupport_Weather\default.txaPackage"/>
 			<FormResources Include="MainUnit.dfm"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

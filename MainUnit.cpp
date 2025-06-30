@@ -247,6 +247,7 @@ void __fastcall TMainForm::Q_WeatherBeforeOpen(TDataSet *DataSet)
 void __fastcall TMainForm::DBGrid2CellClick(TColumn *Column)
 {
 	DBLCB_Fields->KeyValue = T_Fields->FieldByName("FieldID")->AsInteger;
+	GetButtonClick(this);
 }
 //---------------------------------------------------------------------------
 
@@ -257,7 +258,7 @@ void __fastcall TMainForm::ArchiveButtonClick(TObject *Sender)
 //	IdHTTP1->Request->UserAgent = "Mozilla/5.0";
 //	IdHTTP1->Request->Accept = "application/json";
 
-//	IdSSLIOHandlerSocketOpenSSL1->SSLOptions->Method = sslvTLSv1_2;
+	IdSSLIOHandlerSocketOpenSSL1->SSLOptions->Method = sslvSSLv23;
 	TIdHTTP *idHTTP = new TIdHTTP(NULL);
 	idHTTP->Request->UserAgent = "Mozilla/5.0";
 
@@ -294,4 +295,48 @@ void __fastcall TMainForm::DateTimePicker1Change(TObject *Sender)
 //	TDateTime date = UnixToDateTime(const __int64 AValue, bool AReturnUTC = true);     DateUtils::
 }
 //---------------------------------------------------------------------------
+void __fastcall TMainForm::RP5ButtonClick(TObject *Sender)
+{
+	TIdHTTP *idHTTP = new TIdHTTP(NULL);
+	TIdSSLIOHandlerSocketOpenSSL *SSLHandler = new TIdSSLIOHandlerSocketOpenSSL(NULL);
+
+	IdHTTP1->HandleRedirects = true; // Разрешаем редиректы
+	try {
+		// Настройка HTTPS
+		SSLHandler->SSLOptions->Method = sslvSSLv23;
+//		IdHTTP1->IOHandler = SSLHandler;
+		IdHTTP1->IOHandler = IdSSLIOHandlerSocketOpenSSL1;
+		IdHTTP1->Request->UserAgent = "Mozilla/5.0";
+		IdHTTP1->Request->Referer = "https://rp5.ru/Архив_погоды_в_Москве";
+
+		// URL архива погоды (пример для Москвы)
+		//		String url = "http://rp5.ru/Архив_погоды_в_Пулково_(аэропорт),_METAR";
+		//		String url = "https://rp5.ru/Архив_погоды_в_Москве";
+		String url = "https://rp5.ru/Архив_погоды_в_Москве";
+
+		// Загрузка страницы
+		String html = idHTTP->Get(url);
+		Memo1->Text = html; // Вывод HTML (для отладки)
+
+		// Далее парсим HTML (см. ниже)
+	}	catch (Exception &e) {
+		ShowMessage("Ошибка: " + e.Message);
+	}
+	delete SSLHandler;
+	delete IdHTTP1;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainForm::Timer1Timer(TObject *Sender)
+{
+	GetButtonClick(this);
+	DBAddButtonClick(this);
+	if (T_Fields->Eof)
+		T_Fields->First();
+	else
+		T_Fields->Next();
+}
+//---------------------------------------------------------------------------
+
+
 

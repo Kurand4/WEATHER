@@ -41,6 +41,9 @@
 #include <DateUtils.hpp> // Для UnixToDateTime
 #include <SysUtils.hpp>
 
+#include <IdSSLOpenSSLHeaders.hpp>  // Основной заголовочный файл для OpenSSL в Indy
+#include <IdSSLOpenSSL.hpp>         // Для работы с TIdSSLIOHandlerSocketOpenSSL
+
 //---------------------------------------------------------------------------
 #include <Classes.hpp>
 #include <Controls.hpp>
@@ -118,7 +121,6 @@ __published:	// IDE-managed Components
 	TIdHTTP *IdHTTP1;
 	TADTable *T_Fields;
 	TDataSource *DS_Fields;
-	TButton *CloseButton;
 	TButton *GetButton;
 	TDBLookupComboBox *DBLCB_Fields;
 	TADPhysSQLiteDriverLink *ADPhysSQLiteDriverLink1;
@@ -162,6 +164,10 @@ __published:	// IDE-managed Components
 	TTabSheet *TabSheet3;
 	TDateTimePicker *DateTimePicker1;
 	TLabeledEdit *edUnix;
+	TButton *RP5Button;
+	TButton *CloseButton;
+	TTimer *Timer1;
+	TTimer *Timer2;
 	void __fastcall GetButtonClick(TObject *Sender);
 	void __fastcall CloseButtonClick(TObject *Sender);
 	void __fastcall FormActivate(TObject *Sender);
@@ -170,6 +176,8 @@ __published:	// IDE-managed Components
 	void __fastcall DBGrid2CellClick(TColumn *Column);
 	void __fastcall ArchiveButtonClick(TObject *Sender);
 	void __fastcall DateTimePicker1Change(TObject *Sender);
+	void __fastcall RP5ButtonClick(TObject *Sender);
+	void __fastcall Timer1Timer(TObject *Sender);
 
 private:	// User declarations
 	TDateTime dt;

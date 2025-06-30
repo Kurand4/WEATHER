@@ -63,6 +63,9 @@ object MainForm: TMainForm
       Align = alBottom
       Caption = ' '
       TabOrder = 1
+      DesignSize = (
+        1077
+        58)
       object RadioGroup1: TRadioGroup
         Left = 16
         Top = 3
@@ -76,6 +79,16 @@ object MainForm: TMainForm
           'Current'
           'Forecast')
         TabOrder = 0
+      end
+      object CloseButton: TButton
+        Left = 912
+        Top = 11
+        Width = 137
+        Height = 41
+        Anchors = [akRight, akBottom]
+        Caption = 'Close'
+        TabOrder = 1
+        OnClick = CloseButtonClick
       end
     end
     object Panel3: TPanel
@@ -103,24 +116,14 @@ object MainForm: TMainForm
         Height = 13
         Caption = 'Lon'
       end
-      object CloseButton: TButton
-        Left = 33
-        Top = 650
-        Width = 137
-        Height = 41
-        Anchors = [akRight, akBottom]
-        Caption = 'Close'
-        TabOrder = 0
-        OnClick = CloseButtonClick
-      end
       object GetButton: TButton
         Left = 33
-        Top = 482
+        Top = 504
         Width = 137
-        Height = 41
+        Height = 33
         Anchors = [akRight, akBottom]
-        Caption = 'Get'
-        TabOrder = 1
+        Caption = 'OpenWeatherMap'
+        TabOrder = 0
         OnClick = GetButtonClick
       end
       object DBLCB_Fields: TDBLookupComboBox
@@ -132,7 +135,7 @@ object MainForm: TMainForm
         KeyField = 'FieldID'
         ListField = 'FieldName'
         ListSource = DS_Fields
-        TabOrder = 2
+        TabOrder = 1
       end
       object DBEd_Lat: TDBEdit
         Left = 33
@@ -142,7 +145,7 @@ object MainForm: TMainForm
         Anchors = [akTop, akRight]
         DataField = 'Lat'
         DataSource = DS_Fields
-        TabOrder = 3
+        TabOrder = 2
       end
       object DBEd_Lng: TDBEdit
         Left = 121
@@ -152,81 +155,81 @@ object MainForm: TMainForm
         Anchors = [akTop, akRight]
         DataField = 'Lng'
         DataSource = DS_Fields
-        TabOrder = 4
+        TabOrder = 3
       end
       object LE_Temp: TLabeledEdit
         Left = 33
-        Top = 244
+        Top = 228
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
         EditLabel.Width = 80
         EditLabel.Height = 13
         EditLabel.Caption = 'Temperature (C)'
-        TabOrder = 5
+        TabOrder = 4
       end
       object LE_Rain: TLabeledEdit
         Left = 33
-        Top = 332
+        Top = 308
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
         EditLabel.Width = 58
         EditLabel.Height = 13
         EditLabel.Caption = 'Rain (mm/h)'
-        TabOrder = 6
+        TabOrder = 5
       end
       object LE_Clouds: TLabeledEdit
         Left = 33
-        Top = 284
+        Top = 268
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
         EditLabel.Width = 54
         EditLabel.Height = 13
         EditLabel.Caption = 'Clouds (%)'
-        TabOrder = 7
+        TabOrder = 6
       end
       object LE_Time: TLabeledEdit
         Left = 33
-        Top = 380
+        Top = 345
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
         EditLabel.Width = 22
         EditLabel.Height = 13
         EditLabel.Caption = 'Time'
-        TabOrder = 8
+        TabOrder = 7
       end
       object LE_Date: TLabeledEdit
         Left = 33
-        Top = 420
+        Top = 385
         Width = 116
         Height = 21
         Anchors = [akTop, akRight]
         EditLabel.Width = 23
         EditLabel.Height = 13
         EditLabel.Caption = 'Date'
-        TabOrder = 9
+        TabOrder = 8
       end
       object DBAddButton: TButton
         Left = 33
-        Top = 529
+        Top = 608
         Width = 137
-        Height = 41
+        Height = 34
         Anchors = [akRight, akBottom]
         Caption = 'Add to DB'
-        TabOrder = 10
+        TabOrder = 9
         OnClick = DBAddButtonClick
       end
       object ArchiveButton: TButton
         Left = 32
-        Top = 603
+        Top = 652
         Width = 137
-        Height = 41
+        Height = 36
         Anchors = [akRight, akBottom]
         Caption = 'Archive'
-        TabOrder = 11
+        TabOrder = 10
         OnClick = ArchiveButtonClick
       end
       object DateTimePicker1: TDateTimePicker
@@ -236,7 +239,7 @@ object MainForm: TMainForm
         Height = 21
         Date = 45813.210767905090000000
         Time = 45813.210767905090000000
-        TabOrder = 12
+        TabOrder = 11
         OnChange = DateTimePicker1Change
       end
       object edUnix: TLabeledEdit
@@ -247,7 +250,17 @@ object MainForm: TMainForm
         EditLabel.Width = 53
         EditLabel.Height = 13
         EditLabel.Caption = 'UNIX_Date'
+        TabOrder = 12
+      end
+      object RP5Button: TButton
+        Left = 32
+        Top = 561
+        Width = 137
+        Height = 33
+        Anchors = [akRight, akBottom]
+        Caption = 'RP5.ru'
         TabOrder = 13
+        OnClick = RP5ButtonClick
       end
     end
     object Panel4: TPanel
@@ -397,14 +410,14 @@ object MainForm: TMainForm
     Top = 48
   end
   object IdHTTP1: TIdHTTP
-    AllowCookies = True
+    AllowCookies = False
+    HandleRedirects = True
     ProxyParams.BasicAuthentication = False
     ProxyParams.ProxyPort = 0
     Request.ContentLength = -1
     Request.Accept = 'text/html, */*'
     Request.BasicAuthentication = False
-    Request.Host = 'https://api.weather.yandex.ru'
-    Request.UserAgent = 'Mozilla/3.0 (compatible; Indy Library)'
+    Request.UserAgent = 'Mozilla/5.0 (compatible; Indy Library)'
     HTTPOptions = [hoForceEncodeParams]
     Left = 104
     Top = 584
@@ -523,10 +536,22 @@ object MainForm: TMainForm
     MaxLineAction = maException
     Port = 0
     DefaultPort = 0
+    SSLOptions.Method = sslvSSLv23
     SSLOptions.Mode = sslmUnassigned
     SSLOptions.VerifyMode = []
     SSLOptions.VerifyDepth = 0
     Left = 104
-    Top = 528
+    Top = 504
+  end
+  object Timer1: TTimer
+    Interval = 360000
+    OnTimer = Timer1Timer
+    Left = 704
+    Top = 256
+  end
+  object Timer2: TTimer
+    Interval = 36000
+    Left = 704
+    Top = 352
   end
 end
